@@ -6,7 +6,7 @@
 IPV4_IP=192.168.6.254
 IPV4_PORT=53
 
-for intfc in br0 br26 br36 br46 br56 br66; do
+for intfc in $(find /sys/class/net -name br* -exec basename {} \;); do
   if [ -d "/sys/class/net/${intfc}" ]; then
     for proto in udp tcp; do
       prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV4_IP} ! -d ${IPV4_IP} --dport 53 -j DNAT --to ${IPV4_IP}:${IPV4_PORT}"
