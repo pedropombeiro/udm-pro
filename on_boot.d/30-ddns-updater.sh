@@ -12,6 +12,9 @@ else
     --net="host" \
     --security-opt=no-new-privileges \
     -e LISTENING_PORT=8001 \
+    -e LOG_CALLER=short \
+    -e TZ=Europe/Zurich \
+    --env-file /mnt/data/on_boot.d/.30-ddns-updater.env \
     -v /mnt/data/etc-ddns-updater:/updater/data \
     docker.io/qmcgaw/ddns-updater
 fi

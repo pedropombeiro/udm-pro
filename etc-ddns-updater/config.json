@@ -6,15 +6,6 @@
       "token": "399e9d09-b408-4fa8-a7c9-547a4afd28a5",
       "ip_version": "ipv4",
       "provider_ip": true
-    },
-    {
-      "provider": "dyn",
-      "domain": "pombei.ro",
-      "host": "nas",
-      "username": "opendns@pedro.pombei.ro",
-      "password": "nGXUyogaCKaIzQ9fQYpd$",
-      "ip_version": "ipv4",
-      "provider_ip": true
     }
   ]
 }
