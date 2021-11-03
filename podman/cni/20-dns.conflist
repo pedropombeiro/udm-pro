@@ -1,0 +1,24 @@
+{
+  "cniVersion": "0.4.0",
+  "name": "dns",
+  "plugins": [
+    {
+      "type": "macvlan",
+      "mode": "bridge",
+      "master": "br6",
+      "mac": "24:5a:4c:a2:b1:ff",
+      "ipam": {
+        "type": "static",
+        "addresses": [
+          {
+            "address": "192.168.6.254/24",
+            "gateway": "192.168.6.1"
+          }
+        ],
+        "routes": [
+          {"dst": "0.0.0.0/0"}
+        ]
+      }
+    }
+  ]
+}

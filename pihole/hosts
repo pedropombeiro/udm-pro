@@ -1,0 +1,64 @@
+127.0.0.1 localhost
+127.0.1.1 pihole
+
+#Required for IPv6 capable hosts
+::1 ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ff02::3 ip6-allhosts
+
+192.168.6.254	pihole pihole.dns.pombei.ro
+
+192.168.10.1	router router.lan.pombei.ro
+192.168.10.2	gateway-wan gateway-wan.lan.pombei.ro
+192.168.10.4	phone phone.lan.pombei.ro
+
+192.168.16.1	unifi gateway gateway.home.pombei.ro
+192.168.16.2	switch
+192.168.16.3	ap-nanohd
+
+192.168.16.10	nas nas.pombei.ro pihole.pombei.ro media.pombei.ro dashboard.pombei.ro owntracks owntracks.pombei.ro mqtt mqtt.pombei.ro unifi.pombei.ro pms pms.pombei.ro docker docker.pombei.ro huginn huginn.pombei.ro docs docs.pombei.ro dash dash.pombei.ro vpn vpn.pombei.ro nvr.pombei.ro docker-registry docker-registry.pombei.ro grafana grafana.pombei.ro ha ha.pombei.ro postgres postgres.pombei.ro
+192.168.16.11	nas-port2
+192.168.16.12	printer
+192.168.16.13	monitor fping-exporter
+192.168.16.16	Canon-70D
+
+192.168.16.26	pedros-macbookpro16 walkingpad
+192.168.16.27	pedros-macbookpro15
+
+192.168.16.31	pedros-phone
+192.168.16.32	sofias-phone
+
+# VoIP
+192.168.36.1	gateway.voip.pombei.ro
+#192.168.36.10	phone
+
+# IoT
+192.168.46.1	gateway.iot.pombei.ro
+192.168.46.5	tradfri
+192.168.46.10	tv-salon
+192.168.46.12	netbox
+192.168.46.14	Chromecast
+192.168.46.20	pedros-kindle
+192.168.46.40	deskcontroller
+192.168.46.41	keylight
+192.168.46.42	linkitone
+192.168.46.43	mustang-gt
+192.168.46.44	levoit-core-200s
+192.168.46.45	fitbit-aria
+
+# Consoles
+192.168.56.1	gateway.game.pombei.ro
+192.168.56.21	dev-pc
+192.168.56.31	diogos-phone
+192.168.56.35	marianas-phone
+192.168.56.50	xbox
+192.168.56.51	xbox-devtools
+192.168.56.54	Wii
+192.168.56.55	3DS-Diogo
+
+# CCTV
+192.168.66.1	gateway.cctv.pombei.ro
+192.168.66.60	g3-flex-1
