@@ -16,13 +16,13 @@ push-dns-config:
 
 .PHONY: push
 push:
-	ssh unifi 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh /mnt/data/scripts/*.sh /mnt/data/pihole/*'
+	ssh -o RemoteCommand=none unifi 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh /mnt/data/scripts/*.sh /mnt/data/pihole/*'
 	chmod +x ./on_boot.d/*.sh
 	scp ./on_boot.d/*.sh unifi:$(REMOTE_ON_BOOT_D)/
+	scp -r ./on_boot.d/files unifi:$(REMOTE_ON_BOOT_D)/
 	scp ./scripts/*.sh unifi:/mnt/data/scripts/
 	scp ./etc-ddns-updater/* unifi:/mnt/data/etc-ddns-updater/
 	scp ./podman/cni/* unifi:/mnt/data/podman/cni/
-	scp ./podman/cni/* unifi:/mnt/data/podman/cni/
 	scp -r ./pihole/* unifi:/mnt/data/pihole/
 	scp ./etc-pihole/* unifi:/mnt/data/etc-pihole/
-	ssh unifi 'chmod +r /mnt/data/etc-pihole/*'
+	ssh -o RemoteCommand=none unifi 'chmod +r /mnt/data/etc-pihole/*'
