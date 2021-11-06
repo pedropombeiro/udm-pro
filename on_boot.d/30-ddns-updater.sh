@@ -13,7 +13,7 @@ else
     --security-opt=no-new-privileges \
     -e LISTENING_PORT=8001 \
     -e LOG_CALLER=short \
-    -e TZ=Europe/Zurich \
+    -e TZ="$(cat /mnt/data/system/timezone)" \
     --env-file /mnt/data/on_boot.d/files/.30-ddns-updater.env \
     -v /mnt/data/etc-ddns-updater:/updater/data \
     docker.io/qmcgaw/ddns-updater

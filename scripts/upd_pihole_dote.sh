@@ -22,7 +22,7 @@ podman stop pihole
 podman rm pihole
 podman run -d --network dns --restart always \
     --name pihole \
-    -e TZ="Europe/Zurich" \
+    -e TZ="$(cat /mnt/data/system/timezone)" \
     -v "/mnt/data/etc-pihole/:/etc/pihole/" \
     -v "/mnt/data/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/" \
     -v "/mnt/data/pihole/hosts:/etc/hosts:ro" \
