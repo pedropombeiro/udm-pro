@@ -1,5 +1,9 @@
 REMOTE_ON_BOOT_D = /mnt/data/on_boot.d
 
+SCP_FLAGS ?= -o LogLevel=Error
+SSH_FLAGS ?= -o RemoteCommand=none -o LogLevel=error
+SSH_HOST ?= unifi
+
 .PHONY: update
 update:
 	curl -L https://raw.githubusercontent.com/boostchicken/udm-utilities/master/podman-update/01-podman-update.sh -o ./on_boot.d/01-podman-update.sh
@@ -11,18 +15,18 @@ update:
 
 .PHONY: push-dns-config
 push-dns-config:
-	scp -r ./pihole/* unifi:/mnt/data/pihole/
-	ssh unifi 'docker exec -ti pihole pihole restartdns'
+	scp $(SCP_FLAGS) -r ./pihole/* $(SSH_HOST):/mnt/data/pihole/
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'docker exec -ti pihole pihole restartdns'
 
 .PHONY: push
 push:
-	ssh -o RemoteCommand=none unifi 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh /mnt/data/scripts/*.sh /mnt/data/pihole/*'
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh /mnt/data/scripts/*.sh /mnt/data/pihole/*'
 	chmod +x ./on_boot.d/*.sh
-	scp ./on_boot.d/*.sh unifi:$(REMOTE_ON_BOOT_D)/
-	scp -r ./on_boot.d/files unifi:$(REMOTE_ON_BOOT_D)/
-	scp ./scripts/*.sh unifi:/mnt/data/scripts/
-	scp ./etc-ddns-updater/* unifi:/mnt/data/etc-ddns-updater/
-	scp ./podman/cni/* unifi:/mnt/data/podman/cni/
-	scp -r ./pihole/* unifi:/mnt/data/pihole/
-	scp ./etc-pihole/* unifi:/mnt/data/etc-pihole/
-	ssh -o RemoteCommand=none unifi 'chmod +r /mnt/data/etc-pihole/*'
+	scp $(SCP_FLAGS) ./on_boot.d/*.sh $(SSH_HOST):$(REMOTE_ON_BOOT_D)/
+	scp $(SCP_FLAGS) -r ./on_boot.d/files $(SSH_HOST):$(REMOTE_ON_BOOT_D)/
+	scp $(SCP_FLAGS) ./scripts/*.sh $(SSH_HOST):/mnt/data/scripts/
+	scp $(SCP_FLAGS) ./etc-ddns-updater/* $(SSH_HOST):/mnt/data/etc-ddns-updater/
+	scp $(SCP_FLAGS) ./podman/cni/* $(SSH_HOST):/mnt/data/podman/cni/
+	scp $(SCP_FLAGS) -r ./pihole/* $(SSH_HOST):/mnt/data/pihole/
+	scp $(SCP_FLAGS) ./etc-pihole/* $(SSH_HOST):/mnt/data/etc-pihole/
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'chmod +r /mnt/data/etc-pihole/*'
