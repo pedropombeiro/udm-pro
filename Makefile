@@ -20,7 +20,7 @@ push-dns-config:
 
 .PHONY: push
 push:
-	ssh $(SSH_FLAGS) $(SSH_HOST) 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh /mnt/data/scripts/*.sh /mnt/data/pihole/*'
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh $(REMOTE_ON_BOOT_D)/files/* /mnt/data/scripts/*.sh /mnt/data/pihole/*'
 	chmod +x ./on_boot.d/*.sh
 	scp $(SCP_FLAGS) ./on_boot.d/*.sh $(SSH_HOST):$(REMOTE_ON_BOOT_D)/
 	scp $(SCP_FLAGS) -r ./on_boot.d/files $(SSH_HOST):$(REMOTE_ON_BOOT_D)/
