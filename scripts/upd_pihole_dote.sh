@@ -34,4 +34,5 @@ podman run -d --network dns --restart always \
     -e ServerIP="192.168.6.254" \
     -e PIHOLE_DNS_="127.0.0.1#5053" \
     -e IPv6="False" \
+    -e SKIPGRAVITYONBOOT=1 \
     pihole:latest
