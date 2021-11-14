@@ -77,11 +77,15 @@ fi
 for intfc in ${FORCED_INTFC}; do
   if [ -d "/sys/class/net/${intfc}" ]; then
     for proto in udp tcp; do
+      prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV4_IP} ! -d ${IPV4_IP} --dport 53 -j LOG --log-prefix [DNAT-${intfc}-${proto}]"
+      iptables -t nat -C ${prerouting_rule} 2>/dev/null || iptables -t nat -A ${prerouting_rule}
       prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV4_IP} ! -d ${IPV4_IP} --dport 53 -j DNAT --to ${IPV4_IP}"
       iptables -t nat -C ${prerouting_rule} 2>/dev/null || iptables -t nat -A ${prerouting_rule}
 
       # (optional) IPv6 force DNS (TCP/UDP 53) through DNS container
       if [ -n "${IPV6_IP}" ]; then
+        prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV6_IP} ! -d ${IPV6_IP} --dport 53 -j LOG --log-prefix [DNAT-${intfc}-${proto}]"
+        ip6tables -t nat -C ${prerouting_rule} 2>/dev/null || ip6tables -t nat -A ${prerouting_rule}
         prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV6_IP} ! -d ${IPV6_IP} --dport 53 -j DNAT --to ${IPV6_IP}"
         ip6tables -t nat -C ${prerouting_rule} 2>/dev/null || ip6tables -t nat -A ${prerouting_rule}
       fi

@@ -32,6 +32,10 @@ push:
 	scp $(SCP_FLAGS) ./etc-pihole/* $(SSH_HOST):/mnt/data/etc-pihole/
 	ssh $(SSH_FLAGS) $(SSH_HOST) 'chmod +r /mnt/data/etc-pihole/*'
 
+.PHONY:
+refresh-ipt:
+	ssh $(SSH_FLAGS) $(SSH_HOST) /mnt/data/scripts/refresh-iptables.sh
+
 .PHONY: push-ipt
 push-ipt:
 	ssh $(SSH_FLAGS) $(SSH_HOST) 'mkdir -p /mnt/data/scripts; rm -rf /mnt/data/scripts/ipt-enable-logs'
