@@ -33,6 +33,10 @@ push:
 	ssh $(SSH_FLAGS) $(SSH_HOST) 'chmod +r /mnt/data/etc-pihole/*'
 
 .PHONY:
+edit:
+	vim scp://unifi//mnt/data/
+
+.PHONY:
 refresh-ipt:
 	ssh $(SSH_FLAGS) $(SSH_HOST) /mnt/data/scripts/refresh-iptables.sh
 
