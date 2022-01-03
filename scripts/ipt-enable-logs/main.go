@@ -56,7 +56,7 @@ func getRuleName(rule string, commentNr int) string {
 	ruleName = strings.Replace(ruleName, "HOOK", "HK", 1)
 	ruleName = strings.Replace(ruleName, "USER", "U", 1)
 	if commentNr != 0 {
-		ruleName = fmt.Sprintf("%s-%d", ruleName, commentNr & 0xFFFF)
+		ruleName = fmt.Sprintf("%s-%d", ruleName, commentNr & 0xFFFFFFFF)
 	}
 	return ruleName
 }
