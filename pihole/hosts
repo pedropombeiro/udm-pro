@@ -33,7 +33,7 @@ ff02::3 ip6-allhosts
 
 # VoIP
 192.168.36.1	gateway.voip.pombei.ro
-#192.168.36.10	phone
+192.168.36.10	phone
 
 # IoT
 192.168.46.1	gateway.iot.pombei.ro
