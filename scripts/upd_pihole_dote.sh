@@ -37,3 +37,9 @@ podman run -d --network dns --restart always \
     -e IPv6="False" \
     -e SKIPGRAVITYONBOOT=1 \
     pihole:latest
+
+if ! podman exec pihole ls -al /etc/dnsmasq.d/03-user.conf; then
+    code=$?
+    echo 'Pi-hole deployment unsuccessful!'
+    exit ${code}
+fi
