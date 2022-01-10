@@ -16,7 +16,8 @@ update:
 .PHONY: push-dns-config
 push-dns-config:
 	scp $(SCP_FLAGS) -r ./pihole/* $(SSH_HOST):/mnt/data/pihole/
-	ssh $(SSH_FLAGS) $(SSH_HOST) 'docker exec -ti pihole pihole restartdns'
+	scp $(SCP_FLAGS) ./etc-pihole/* $(SSH_HOST):/mnt/data/etc-pihole/
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'chmod +r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*; docker exec pihole pihole restartdns'
 
 .PHONY: push
 push:
@@ -28,9 +29,7 @@ push:
 	scp $(SCP_FLAGS) -r ./scripts/ipt-enable-logs $(SSH_HOST):/mnt/data/scripts/
 	scp $(SCP_FLAGS) ./etc-ddns-updater/* $(SSH_HOST):/mnt/data/etc-ddns-updater/
 	scp $(SCP_FLAGS) ./podman/cni/* $(SSH_HOST):/mnt/data/podman/cni/
-	scp $(SCP_FLAGS) -r ./pihole/* $(SSH_HOST):/mnt/data/pihole/
-	scp $(SCP_FLAGS) ./etc-pihole/* $(SSH_HOST):/mnt/data/etc-pihole/
-	ssh $(SSH_FLAGS) $(SSH_HOST) 'chmod +r /mnt/data/etc-pihole/*'
+	$(MAKE) push-dns-config
 
 .PHONY:
 edit:

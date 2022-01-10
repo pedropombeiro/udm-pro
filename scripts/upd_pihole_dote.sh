@@ -2,7 +2,7 @@
 
 set -e
 
-DOCKER_TAG=2021.12
+DOCKER_TAG=2022.01.1
 tmpdir="$(mktemp -d)"
 curl -sSLo "${tmpdir}/dote" https://github.com/chrisstaite/DoTe/releases/latest/download/dote_arm64
 
@@ -16,6 +16,8 @@ EOF
 podman pull pihole/pihole:${DOCKER_TAG}
 podman build -t pihole:latest --format docker -f "${tmpdir}/Dockerfile" "${tmpdir}"
 rm -rf "${tmpdir}"
+
+chmod +r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*
 
 set +e
 
@@ -36,6 +38,7 @@ podman run -d --network dns --restart always \
     -e PIHOLE_DNS_="127.0.0.1#5053" \
     -e IPv6="False" \
     -e SKIPGRAVITYONBOOT=1 \
+    -e DBIMPORT=yes \
     pihole:latest
 
 if ! podman exec pihole ls -al /etc/dnsmasq.d/03-user.conf; then
