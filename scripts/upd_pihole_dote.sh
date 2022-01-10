@@ -31,6 +31,8 @@ podman run -d --network dns --restart always \
     -v "/mnt/data/pihole/hosts:/etc/hosts:ro" \
     --dns=127.0.0.1 \
     --hostname pihole \
+    --cap-add=NET_ADMIN \
+    --cap-add=SYS_NICE \
     -e DOTE_OPTS="-s 127.0.0.1:5053 --forwarder 1.1.1.1:853 --connections 10 --hostname cloudflare-dns.com --pin XdhSFdS2Zao99m31qAd/19S0SDzT2D52btXyYWqnJn4=" \
     -e VIRTUAL_HOST="pihole" \
     -e PROXY_LOCATION="pihole" \
