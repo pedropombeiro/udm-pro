@@ -37,7 +37,7 @@ func main() {
 		}
 		actionName := getActionName(string(matches[3]))
 		ruleName := getRuleName(string(matches[1]), commentNr)
-		fmt.Printf(`%s --log-prefix "[FW-%s-%s] "`, line, actionName, ruleName)
+		fmt.Printf(`%s --log-prefix "[FW-%s-%s]"`, line, actionName, ruleName)
 	}
 }
 
