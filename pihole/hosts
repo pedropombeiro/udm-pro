@@ -25,7 +25,6 @@ ff02::3 ip6-allhosts
 192.168.16.13	monitor
 192.168.16.16	Canon-70D
 
-192.168.16.26	pedros-macbookpro16 walkingpad
 192.168.16.27	pedros-macbookpro15
 
 192.168.16.31	pedros-phone
@@ -63,3 +62,6 @@ ff02::3 ip6-allhosts
 # CCTV
 192.168.66.1	gateway.cctv.pombei.ro
 192.168.66.60	g3-flex-1
+
+# Work
+192.168.76.26	pedros-macbookpro16 walkingpad
