@@ -2,7 +2,7 @@
 
 set -e
 
-DOCKER_TAG=2022.01.1
+DOCKER_TAG=2022.02.1
 tmpdir="$(mktemp -d)"
 curl -sSLo "${tmpdir}/dote" https://github.com/chrisstaite/DoTe/releases/latest/download/dote_arm64
 
