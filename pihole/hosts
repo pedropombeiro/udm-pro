@@ -9,26 +9,18 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ff02::3 ip6-allhosts
 
+# DNS
 192.168.6.254	pihole pihole.dns.pombei.ro
 
+# ISP
 192.168.10.1	router router.lan.pombei.ro
 192.168.10.2	gateway-wan gateway-wan.lan.pombei.ro
 192.168.10.4	phone phone.lan.pombei.ro
 
-192.168.16.1	unifi gateway gateway.home.pombei.ro
+# Management
+192.168.16.1	unifi gateway gateway.infra.pombei.ro
 192.168.16.2	switch
 192.168.16.3	ap-nanohd
-
-192.168.16.10	nas nas.pombei.ro pihole.pombei.ro media.pombei.ro dashboard.pombei.ro owntracks owntracks.pombei.ro mqtt mqtt.pombei.ro unifi.pombei.ro pms pms.pombei.ro docker docker.pombei.ro huginn huginn.pombei.ro docs docs.pombei.ro dash dash.pombei.ro vpn vpn.pombei.ro nvr.pombei.ro docker-registry docker-registry.pombei.ro grafana grafana.pombei.ro ha ha.pombei.ro postgres postgres.pombei.ro
-192.168.16.11	nas-port2
-192.168.16.12	printer
-192.168.16.13	monitor
-192.168.16.16	Canon-70D
-
-192.168.16.27	pedros-macbookpro15
-
-192.168.16.31	pedros-phone
-192.168.16.32	sofias-phone
 
 # VoIP
 192.168.36.1	gateway.voip.pombei.ro
@@ -65,3 +57,15 @@ ff02::3 ip6-allhosts
 
 # Work
 192.168.76.26	pedros-macbookpro16 walkingpad
+
+# Home
+192.168.96.10	nas nas.pombei.ro pihole.pombei.ro media.pombei.ro dashboard.pombei.ro owntracks owntracks.pombei.ro mqtt mqtt.pombei.ro unifi.pombei.ro pms pms.pombei.ro docker docker.pombei.ro huginn huginn.pombei.ro docs docs.pombei.ro dash dash.pombei.ro vpn vpn.pombei.ro nvr.pombei.ro docker-registry docker-registry.pombei.ro grafana grafana.pombei.ro ha ha.pombei.ro postgres postgres.pombei.ro
+192.168.96.11	nas-port2
+192.168.96.12	printer
+192.168.96.13	monitor
+192.168.96.16	Canon-70D
+
+192.168.96.27	pedros-macbookpro15
+
+192.168.96.31	pedros-phone
+192.168.96.32	sofias-phone
