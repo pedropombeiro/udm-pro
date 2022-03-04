@@ -21,6 +21,7 @@ ff02::3 ip6-allhosts
 192.168.16.1	unifi gateway gateway.infra.pombei.ro
 192.168.16.2	switch
 192.168.16.3	ap-nanohd
+192.168.16.4	ap-u6pro
 
 # VoIP
 192.168.36.1	gateway.voip.pombei.ro
