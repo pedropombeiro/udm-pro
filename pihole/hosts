@@ -10,29 +10,29 @@ ff02::2 ip6-allrouters
 ff02::3 ip6-allhosts
 
 # DNS
-192.168.6.254	pihole pihole.dns.pombei.ro
+192.168.6.254 pihole pihole.dns.pombei.ro
 
 # ISP
-192.168.10.1	router router.lan.pombei.ro
-192.168.10.2	gateway-wan gateway-wan.lan.pombei.ro
-192.168.10.4	phone phone.lan.pombei.ro
+192.168.10.1 router router.lan.pombei.ro
+192.168.10.2 gateway-wan gateway-wan.lan.pombei.ro
+192.168.10.3 netbox netbox.lan.pombei.ro
+192.168.10.4 phone phone.lan.pombei.ro
 
 # Management
-192.168.16.1	unifi gateway gateway.infra.pombei.ro
-192.168.16.2	switch
-192.168.16.3	ap-nanohd
-192.168.16.4	ap-u6pro
+192.168.16.1 unifi gateway gateway.infra.pombei.ro
+192.168.16.2 switch
+192.168.16.3 ap-nanohd
+192.168.16.4 ap-u6pro
 
 # VoIP
-192.168.36.1	gateway.voip.pombei.ro
-192.168.36.10	phone
+192.168.36.1  gateway.voip.pombei.ro
+192.168.36.10 phone
 
 # IoT
-192.168.46.1	gateway.iot.pombei.ro
-192.168.46.5	tradfri
+192.168.46.1  gateway.iot.pombei.ro
+192.168.46.5  tradfri
 192.168.46.10	tv-salon
-192.168.46.12	netbox
-192.168.46.14	Chromecast
+192.168.46.14 Chromecast
 192.168.46.20	pedros-kindle
 192.168.46.40	deskcontroller
 192.168.46.41	keylight
@@ -42,7 +42,7 @@ ff02::3 ip6-allhosts
 192.168.46.45	fitbit-aria
 
 # Consoles
-192.168.56.1	gateway.game.pombei.ro
+192.168.56.1  gateway.game.pombei.ro
 192.168.56.20	dev-pc
 192.168.56.21	dev-pc-wireless
 192.168.56.31	diogos-phone
