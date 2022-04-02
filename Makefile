@@ -31,7 +31,7 @@ push:
 	scp $(SCP_FLAGS) ./podman/cni/* $(SSH_HOST):/mnt/data/podman/cni/
 	scp $(SCP_FLAGS) ./cronjobs/* $(SSH_HOST):/mnt/data/cronjobs/
 	$(MAKE) push-dns-config
-	ssh $(SSH_FLAGS) $(SSH_HOST) 'docker restart pihole'
+	ssh $(SSH_FLAGS) $(SSH_HOST) '/mnt/data/scripts/upd_pihole_dote.sh'
 
 .PHONY:
 edit:

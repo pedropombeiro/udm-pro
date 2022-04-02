@@ -2,7 +2,7 @@
 
 set -e
 
-DOCKER_TAG=2022.02.1
+DOCKER_TAG=2022.04
 tmpdir="$(mktemp -d)"
 curl -sSLo "${tmpdir}/dote" https://github.com/chrisstaite/DoTe/releases/latest/download/dote_arm64
 
@@ -43,7 +43,9 @@ podman run -d --network dns --restart always \
     -e DBIMPORT=yes \
     pihole:latest
 
-if ! podman exec pihole ls -al /etc/dnsmasq.d/03-user.conf; then
+sleep 5 # Allow Pi-hole to start up
+
+if ! curl --connect-timeout 0.5 -fsL 192.168.6.254/admin -o /dev/null; then
     code=$?
     echo 'Pi-hole deployment unsuccessful!'
     exit ${code}
