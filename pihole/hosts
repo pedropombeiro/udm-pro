@@ -34,7 +34,6 @@ ff02::3 ip6-allhosts
 192.168.46.14 Chromecast
 192.168.46.20 pedros-kindle
 192.168.46.40 deskcontroller
-192.168.46.41 keylight
 192.168.46.42 linkitone
 192.168.46.43 mustang-gt
 192.168.46.45 fitbit-aria
@@ -56,6 +55,7 @@ ff02::3 ip6-allhosts
 
 # Work
 192.168.76.26 gitlab-macbookpro walkingpad
+192.168.76.41 keylight
 
 # Home
 192.168.96.10	nas nas.pombei.ro pihole.pombei.ro media.pombei.ro dashboard.pombei.ro owntracks owntracks.pombei.ro mqtt mqtt.pombei.ro unifi.pombei.ro pms pms.pombei.ro docker docker.pombei.ro huginn huginn.pombei.ro docs docs.pombei.ro dash dash.pombei.ro vpn vpn.pombei.ro nvr.pombei.ro docker-registry docker-registry.pombei.ro grafana grafana.pombei.ro ha ha.pombei.ro postgres postgres.pombei.ro
