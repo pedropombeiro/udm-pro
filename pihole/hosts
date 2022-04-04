@@ -55,7 +55,7 @@ ff02::3 ip6-allhosts
 192.168.66.60 g3-flex-1
 
 # Work
-192.168.76.26 pedros-macbookpro16 walkingpad
+192.168.76.26 gitlab-macbookpro walkingpad
 
 # Home
 192.168.96.10	nas nas.pombei.ro pihole.pombei.ro media.pombei.ro dashboard.pombei.ro owntracks owntracks.pombei.ro mqtt mqtt.pombei.ro unifi.pombei.ro pms pms.pombei.ro docker docker.pombei.ro huginn huginn.pombei.ro docs docs.pombei.ro dash dash.pombei.ro vpn vpn.pombei.ro nvr.pombei.ro docker-registry docker-registry.pombei.ro grafana grafana.pombei.ro ha ha.pombei.ro postgres postgres.pombei.ro
@@ -64,7 +64,9 @@ ff02::3 ip6-allhosts
 192.168.96.13	monitor
 192.168.96.16	Canon-70D
 
+192.168.96.25	lenovo-eth-adapter
 192.168.96.27	pedros-macbookpro15
+192.168.96.28	pedros-macbookpro16
 
 192.168.96.31	pedros-phone
 192.168.96.32	sofias-phone
