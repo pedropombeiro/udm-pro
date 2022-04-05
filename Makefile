@@ -21,7 +21,7 @@ push-dns-config:
 
 .PHONY: push
 push:
-	ssh $(SSH_FLAGS) $(SSH_HOST) 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d /mnt/data/cronjobs; rm -rf $(REMOTE_ON_BOOT_D)/*.sh $(REMOTE_ON_BOOT_D)/files/* /mnt/data/scripts/*.sh /mnt/data/pihole/* /mnt/data/scripts/ipt-enable-logs /mnt/data/cronjobs/*'
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d /mnt/data/cronjobs /mnt/data/settings/profile/global.profile.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh $(REMOTE_ON_BOOT_D)/files/* /mnt/data/scripts/*.sh /mnt/data/pihole/* /mnt/data/scripts/ipt-enable-logs /mnt/data/cronjobs/* /mnt/data/settings/profile/global.profile.d/*'
 	chmod +x ./on_boot.d/*.sh
 	scp $(SCP_FLAGS) ./on_boot.d/*.sh $(SSH_HOST):$(REMOTE_ON_BOOT_D)/
 	scp $(SCP_FLAGS) -r ./on_boot.d/files $(SSH_HOST):$(REMOTE_ON_BOOT_D)/
@@ -30,6 +30,7 @@ push:
 	scp $(SCP_FLAGS) ./etc-ddns-updater/* $(SSH_HOST):/mnt/data/etc-ddns-updater/
 	scp $(SCP_FLAGS) ./podman/cni/* $(SSH_HOST):/mnt/data/podman/cni/
 	scp $(SCP_FLAGS) ./cronjobs/* $(SSH_HOST):/mnt/data/cronjobs/
+	scp $(SCP_FLAGS) ./settings/profile/global.profile.d/* $(SSH_HOST):/mnt/data/settings/profile/global.profile.d/
 	$(MAKE) push-dns-config
 	ssh $(SSH_FLAGS) $(SSH_HOST) '/mnt/data/scripts/upd_pihole_dote.sh'
 
