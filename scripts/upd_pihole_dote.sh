@@ -2,7 +2,7 @@
 
 set -e
 
-DOCKER_TAG=2022.07.1
+DOCKER_TAG=2022.09.1
 tmpdir="$(mktemp -d)"
 curl -sSLo "${tmpdir}/dote" https://github.com/chrisstaite/DoTe/releases/latest/download/dote_arm64
 
@@ -10,7 +10,7 @@ cat > "${tmpdir}/Dockerfile" <<EOF
 FROM pihole/pihole:${DOCKER_TAG}
 ENV DOTE_OPTS="-s 127.0.0.1:5053"
 COPY dote /opt/dote
-RUN echo -e "#!/bin/sh\nchmod +x /opt/dote\n/opt/dote \\\$DOTE_OPTS -d\n" > /etc/cont-init.d/10-dote.sh && chmod +x /etc/cont-init.d/10-dote.sh
+RUN mkdir -p /etc/cont-init.d && echo -e "#!/bin/sh\nchmod +x /opt/dote\n/opt/dote \\\$DOTE_OPTS -d\n" > /etc/cont-init.d/10-dote.sh && chmod +x /etc/cont-init.d/10-dote.sh
 EOF
 
 podman pull pihole/pihole:${DOCKER_TAG}
