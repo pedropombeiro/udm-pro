@@ -10,7 +10,7 @@ cat > "${tmpdir}/Dockerfile" <<EOF
 FROM pihole/pihole:${DOCKER_TAG}
 ENV DOTE_OPTS="-s 127.0.0.1:5053"
 COPY dote /opt/dote
-RUN chmod +x /opt/dote && echo -e  "#!/bin/sh\n/opt/dote \\\$DOTE_OPTS -d\n" > /etc/cont-init.d/10-dote.sh
+RUN echo -e "#!/bin/sh\nchmod +x /opt/dote\n/opt/dote \\\$DOTE_OPTS -d\n" > /etc/cont-init.d/10-dote.sh && chmod +x /etc/cont-init.d/10-dote.sh
 EOF
 
 podman pull pihole/pihole:${DOCKER_TAG}
