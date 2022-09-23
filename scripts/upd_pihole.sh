@@ -3,26 +3,16 @@
 set -e
 
 DOCKER_TAG=2022.09.4
-tmpdir="$(mktemp -d)"
-curl -sSLo "${tmpdir}/dote" https://github.com/chrisstaite/DoTe/releases/latest/download/dote_arm64
-
-cat > "${tmpdir}/Dockerfile" <<EOF
-FROM pihole/pihole:${DOCKER_TAG}
-ENV DOTE_OPTS="-s 127.0.0.1:5053"
-COPY dote /opt/dote
-RUN mkdir -p /etc/cont-init.d && echo -e "#!/bin/sh\nchmod +x /opt/dote\n/opt/dote \\\$DOTE_OPTS -d\n" > /etc/cont-init.d/10-dote.sh && chmod +x /etc/cont-init.d/10-dote.sh
-EOF
-
-echo 'Pulling new Pi-hole base image'
-podman pull pihole/pihole:${DOCKER_TAG}
-echo 'Building new Pi-hole image'
-podman build -t pihole:latest --format docker -f "${tmpdir}/Dockerfile" "${tmpdir}"
-rm -rf "${tmpdir}"
 
 chmod +r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*
 
 set +e
 
+# Change to boostchicken/pihole:latest for DoH
+# Change to boostchicken/pihole-dote:latest for DoTE
+IMAGE=pihole/pihole:$DOCKER_TAG
+
+podman pull $IMAGE
 echo 'Stopping Pi-hole'
 podman stop pihole
 echo 'Removing Pi-hole'
@@ -35,18 +25,17 @@ podman run -d --network dns --restart always \
     -v "/mnt/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d" \
     -v "/mnt/data/pihole/hosts:/etc/hosts:ro" \
     --dns=127.0.0.1 \
+    --dns=1.1.1.1 \
+    --dns=1.0.0.1 \
     --hostname pihole \
-    --cap-add=NET_ADMIN \
-    --cap-add=SYS_NICE \
-    -e DOTE_OPTS="-s 127.0.0.1:5053 --forwarder 1.1.1.1 --forwarder 1.0.0.1 --connections 10 --hostname cloudflare-dns.com --pin XdhSFdS2Zao99m31qAd/19S0SDzT2D52btXyYWqnJn4=" \
     -e VIRTUAL_HOST="pihole" \
     -e PROXY_LOCATION="pihole" \
     -e ServerIP="192.168.6.254" \
-    -e PIHOLE_DNS_="127.0.0.1#5053" \
+    -e PIHOLE_DNS_="1.1.1.1;1.0.0.1" \
     -e IPv6="False" \
     -e SKIPGRAVITYONBOOT=1 \
     -e DBIMPORT=yes \
-    pihole:latest
+    $IMAGE
 
 echo 'Waiting for new Pi-hole version to start'
 sleep 5 # Allow Pi-hole to start up
