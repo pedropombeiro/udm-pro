@@ -10,7 +10,10 @@ cat > "${tmpdir}/Dockerfile" <<EOF
 FROM pihole/pihole:${DOCKER_TAG}
 ENV DOTE_OPTS="-s 127.0.0.1:5053"
 COPY dote /opt/dote
-RUN mkdir -p /etc/cont-init.d && echo -e "#!/bin/sh\nchmod +x /opt/dote\n/opt/dote \\\$DOTE_OPTS -d\n" > /etc/cont-init.d/10-dote.sh && chmod +x /etc/cont-init.d/10-dote.sh
+RUN usermod -aG pihole www-data; \
+  mkdir -p /etc/cont-init.d && \
+  echo -e "#!/bin/sh\nchmod +x /opt/dote\n/opt/dote \\\$DOTE_OPTS -d\n" > /etc/cont-init.d/10-dote.sh && \
+  chmod +x /etc/cont-init.d/10-dote.sh
 EOF
 
 echo 'Pulling new Pi-hole base image'
@@ -20,6 +23,12 @@ podman build -t pihole:latest --format docker -f "${tmpdir}/Dockerfile" "${tmpdi
 rm -rf "${tmpdir}"
 
 chmod +r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*
+chmod 0664 /mnt/data/etc-pihole/gravity.db
+touch /mnt/data/etc-pihole/macvendor.db
+chown 999:999 /mnt/data/etc-pihole/macvendor.db
+chmod 0755 /mnt/data/etc-pihole/migration_backup/
+chmod 0664 /mnt/data/etc-pihole/pihole-FTL.conf
+chown 999:0 /mnt/data/etc-pihole/pihole-FTL.conf
 
 set +e
 
@@ -36,7 +45,6 @@ podman run -d --network dns --restart always \
     -v "/mnt/data/pihole/hosts:/etc/hosts:ro" \
     --dns=127.0.0.1 \
     --hostname pihole \
-    --cap-add=NET_ADMIN \
     --cap-add=SYS_NICE \
     -e DOTE_OPTS="-s 127.0.0.1:5053 --forwarder 1.1.1.1 --forwarder 1.0.0.1 --connections 10 --hostname cloudflare-dns.com --pin XdhSFdS2Zao99m31qAd/19S0SDzT2D52btXyYWqnJn4=" \
     -e VIRTUAL_HOST="pihole" \
