@@ -2,7 +2,7 @@
 
 set -e
 
-DOCKER_TAG=2022.09.4
+DOCKER_TAG=2022.10
 
 chmod +r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*
 
