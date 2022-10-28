@@ -1,6 +1,6 @@
 REMOTE_ON_BOOT_D = /mnt/data/on_boot.d
 
-SCP_FLAGS ?= -o LogLevel=Error
+SCP_FLAGS ?= -O -o LogLevel=Error
 SSH_FLAGS ?= -o RemoteCommand=none -o LogLevel=error
 SSH_HOST ?= root@192.168.16.1
 
