@@ -24,6 +24,7 @@ rm -rf "${tmpdir}"
 
 chmod +r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*
 chmod 0664 /mnt/data/etc-pihole/gravity.db
+rm -f /mnt/data/etc-pihole/macvendor.db
 touch /mnt/data/etc-pihole/macvendor.db
 chown 999:999 /mnt/data/etc-pihole/macvendor.db
 chmod 0755 /mnt/data/etc-pihole/migration_backup/

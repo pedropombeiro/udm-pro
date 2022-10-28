@@ -17,14 +17,13 @@ update:
 push-dns-config:
 	scp $(SCP_FLAGS) -r ./pihole/* $(SSH_HOST):/mnt/data/pihole/
 	scp $(SCP_FLAGS) ./etc-pihole/* $(SSH_HOST):/mnt/data/etc-pihole/
-	ssh $(SSH_FLAGS) $(SSH_HOST) 'chmod a+r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*; docker exec pihole pihole restartdns'
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'touch /mnt/data/etc-pihole/macvendor.db; chmod a+r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*; docker exec pihole pihole restartdns'
 
 .PHONY: push
 push:
-	ssh $(SSH_FLAGS) $(SSH_HOST) 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d /mnt/data/cronjobs /mnt/data/settings/profile/global.profile.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh $(REMOTE_ON_BOOT_D)/files/* /mnt/data/scripts/*.sh /mnt/data/pihole/* /mnt/data/scripts/ipt-enable-logs /mnt/data/cronjobs/* /mnt/data/settings/profile/global.profile.d/*'
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'mkdir -p $(REMOTE_ON_BOOT_D) /mnt/data/scripts /mnt/data/podman/cni /mnt/data/etc-ddns-updater /mnt/data/pihole /mnt/data/etc-pihole /mnt/data/pihole/etc-dnsmasq.d /mnt/data/cronjobs /mnt/data/settings/profile/global.profile.d; rm -rf $(REMOTE_ON_BOOT_D)/*.sh /mnt/data/scripts/*.sh /mnt/data/pihole/* /mnt/data/scripts/ipt-enable-logs /mnt/data/cronjobs/* /mnt/data/settings/profile/global.profile.d/*'
 	chmod +x ./on_boot.d/*.sh
 	scp $(SCP_FLAGS) ./on_boot.d/*.sh $(SSH_HOST):$(REMOTE_ON_BOOT_D)/
-	scp $(SCP_FLAGS) -r ./on_boot.d/files $(SSH_HOST):$(REMOTE_ON_BOOT_D)/
 	scp $(SCP_FLAGS) ./scripts/*.sh $(SSH_HOST):/mnt/data/scripts/
 	scp $(SCP_FLAGS) -r ./scripts/ipt-enable-logs $(SSH_HOST):/mnt/data/scripts/
 	scp $(SCP_FLAGS) ./etc-ddns-updater/* $(SSH_HOST):/mnt/data/etc-ddns-updater/
