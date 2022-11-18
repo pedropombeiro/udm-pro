@@ -37,7 +37,7 @@ podman run -d --network dns --restart always \
     --hostname pihole \
     -e VIRTUAL_HOST="pihole" \
     -e PROXY_LOCATION="pihole" \
-    -e ServerIP="192.168.6.254" \
+    -e FTLCONF_LOCAL_IPV4="192.168.6.254" \
     -e PIHOLE_DNS_="1.1.1.1;1.0.0.1" \
     -e IPv6="False" \
     -e SKIPGRAVITYONBOOT=1 \
