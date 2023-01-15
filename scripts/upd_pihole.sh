@@ -2,7 +2,7 @@
 
 set -e
 
-DOCKER_TAG=2022.12.1
+DOCKER_TAG=2023.01
 
 chmod +r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*
 chmod 0664 /mnt/data/etc-pihole/gravity.db
