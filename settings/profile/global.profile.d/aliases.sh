@@ -1,6 +1,5 @@
 #!/bin/sh
 
-alias -='cd -'
 alias ...=../..
 alias ....=../../..
 alias .....=../../../..
@@ -13,3 +12,4 @@ alias mkcd='foo(){ mkdir -p "$1"; cd "$1" }; foo'
 alias mv='mv -i'
 alias rd=rmdir
 alias rm='rm -i'
+alias docker='podman'

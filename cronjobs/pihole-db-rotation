@@ -1,2 +1,2 @@
-0 0 1 * * /mnt/data/scripts/rotate-pihole-ftl-db.sh >/dev/null 2>&1
+0 0 1 * * root /data/scripts/rotate-pihole-ftl-db.sh >/dev/null 2>&1
 

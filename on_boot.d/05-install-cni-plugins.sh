@@ -19,7 +19,7 @@ case "$(ubnt-device-info firmware || true)" in
   esac
 
 ## Set the version of cni plugin to use. It will revert to latest if an invalid version is given, and the installer will use the last installed version if that fails.
-# Examples of valid version code would be "latest", "v0.9.1" and "v0.9.0". 
+# Examples of valid version code would be "latest", "v0.9.1" and "v0.9.0".
 CNI_PLUGIN_VER=latest
 # location of the CNI Plugin cached tar files
 CNI_CACHE="$DATA_DIR/.cache/cni-plugins"
@@ -74,7 +74,7 @@ checksum_test()
     return 3
   fi
   value1=$(${1}sum ${2} | awk '{print $1}')
-  value2=$(cat ${3} | awk '{print $1}')    
+  value2=$(cat ${3} | awk '{print $1}')
   if [ "${value1}" = "${value2}" ]; then
     return 0
   else

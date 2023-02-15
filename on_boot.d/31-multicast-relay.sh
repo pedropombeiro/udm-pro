@@ -16,6 +16,6 @@ else
     --restart=always \
     -e OPTS="--noSonosDiscovery" \
     -e INTERFACES="eth8 br46 br56 br76 br96" \
-    -e TZ="$(cat /mnt/data/system/timezone)" \
+    -e TZ="$(cat /data/system/timezone)" \
     scyto/multicast-relay
 fi

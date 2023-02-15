@@ -4,14 +4,17 @@ set -e
 
 DOCKER_TAG=2023.02.0
 
-chmod +r /mnt/data/etc-pihole/* /mnt/data/pihole/* /mnt/data/pihole/etc-dnsmasq.d/*
-chmod 0664 /mnt/data/etc-pihole/gravity.db
-rm -f /mnt/data/etc-pihole/macvendor.db
-touch /mnt/data/etc-pihole/macvendor.db
-chown 999:999 /mnt/data/etc-pihole/macvendor.db
-chmod 0755 /mnt/data/etc-pihole/migration_backup/
-chmod 0664 /mnt/data/etc-pihole/pihole-FTL.conf
-chown 999:0 /mnt/data/etc-pihole/pihole-FTL.conf
+chmod +r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/*
+chmod 0664 /data/etc-pihole/gravity.db
+rm -f /data/etc-pihole/macvendor.db
+touch /data/etc-pihole/macvendor.db
+chown root:root /data/etc-pihole/macvendor.db
+chown -R root:root /data/etc-pihole/
+mkdir -p /data/etc-pihole/migration_backup/
+chmod 0755 /data/etc-pihole/migration_backup/
+touch /data/etc-pihole/pihole-FTL.conf
+chmod 0664 /data/etc-pihole/pihole-FTL.conf
+chown root:root /data/etc-pihole/pihole-FTL.conf
 
 set +e
 
@@ -27,14 +30,16 @@ podman rm pihole
 echo 'Starting new Pi-hole version'
 podman run -d --network dns --restart always \
     --name pihole \
-    -e TZ="$(cat /mnt/data/system/timezone)" \
-    -v "/mnt/data/etc-pihole:/etc/pihole" \
-    -v "/mnt/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d" \
-    -v "/mnt/data/pihole/hosts:/etc/hosts:ro" \
+    -e TZ="$(cat /data/system/timezone)" \
+    -v "/data/etc-pihole:/etc/pihole" \
+    -v "/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d" \
+    -v "/data/pihole/hosts:/etc/hosts:ro" \
     --dns=127.0.0.1 \
     --dns=1.1.1.1 \
     --dns=1.0.0.1 \
     --hostname pihole \
+    -e PIHOLE_UID=0 \
+    -e PIHOLE_GID=0 \
     -e VIRTUAL_HOST="pihole" \
     -e PROXY_LOCATION="pihole" \
     -e FTLCONF_LOCAL_IPV4="192.168.6.254" \
@@ -48,7 +53,7 @@ echo 'Waiting for new Pi-hole version to start'
 sleep 5 # Allow Pi-hole to start up
 
 if curl --connect-timeout 0.5 -fsL 192.168.6.254/admin -o /dev/null; then
-  docker system prune
+  podman system prune
 else
   code=$?
   echo 'Pi-hole deployment unsuccessful!'

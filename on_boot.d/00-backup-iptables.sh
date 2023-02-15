@@ -1,4 +1,4 @@
 #!/bin/sh
 
-iptables-save > /mnt/data/iptables.bak
-iptables-restore --test --verbose < /mnt/data/iptables.bak
+iptables-save > /data/iptables.bak
+iptables-restore --test --verbose < /data/iptables.bak
