@@ -2,25 +2,10 @@
 
 set -e
 
-DOCKER_TAG=2023.02.2
-tmpdir="$(mktemp -d)"
-curl -sSLo "${tmpdir}/dote" https://github.com/chrisstaite/DoTe/releases/latest/download/dote_arm64
-
-cat > "${tmpdir}/Dockerfile" <<EOF
-FROM pihole/pihole:${DOCKER_TAG}
-ENV DOTE_OPTS="-s 127.0.0.1:5053"
-COPY dote /opt/dote
-RUN usermod -aG pihole www-data; \
-  mkdir -p /etc/cont-init.d && \
-  echo -e "#!/bin/sh\nchmod +x /opt/dote\n/opt/dote \\\$DOTE_OPTS -d\n" > /etc/cont-init.d/10-dote.sh && \
-  chmod +x /etc/cont-init.d/10-dote.sh
-EOF
+DOCKER_TAG=latest
 
 echo 'Pulling new Pi-hole base image'
-podman pull pihole/pihole:${DOCKER_TAG}
-echo 'Building new Pi-hole image'
-podman build -t pihole:latest --format docker -f "${tmpdir}/Dockerfile" "${tmpdir}"
-rm -rf "${tmpdir}"
+podman pull ghcr.io/pedropombeiro/pihole_dote:${DOCKER_TAG}
 
 chmod +r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/*
 chmod 0664 /data/etc-pihole/gravity.db
@@ -60,7 +45,7 @@ podman run -d --network dns --restart always \
     -e IPv6="False" \
     -e SKIPGRAVITYONBOOT=1 \
     -e DBIMPORT=yes \
-    pihole:latest
+    ghcr.io/pedropombeiro/pihole_dote:${DOCKER_TAG}
 
 echo 'Waiting for new Pi-hole version to start'
 sleep 5 # Allow Pi-hole to start up
