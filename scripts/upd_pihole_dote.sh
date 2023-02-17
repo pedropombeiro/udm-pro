@@ -5,7 +5,7 @@ set -e
 DOCKER_TAG=latest
 
 echo 'Pulling new Pi-hole base image'
-podman pull ghcr.io/pedropombeiro/pihole_dote:${DOCKER_TAG}
+podman pull pombeirp/pihole-dote:${DOCKER_TAG}
 
 chmod +r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/*
 chmod 0664 /data/etc-pihole/gravity.db
@@ -45,7 +45,7 @@ podman run -d --network dns --restart always \
     -e IPv6="False" \
     -e SKIPGRAVITYONBOOT=1 \
     -e DBIMPORT=yes \
-    ghcr.io/pedropombeiro/pihole_dote:${DOCKER_TAG}
+    pombeirp/pihole-dote:${DOCKER_TAG}
 
 echo 'Waiting for new Pi-hole version to start'
 sleep 5 # Allow Pi-hole to start up
