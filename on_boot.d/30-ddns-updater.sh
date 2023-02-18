@@ -7,12 +7,11 @@ CONTAINER=ddns-updater
 if podman container exists "${CONTAINER}"; then
   podman start "${CONTAINER}"
 else
-  podman run -i -d --rm \
+  podman run -d --rm \
     --name "${CONTAINER}" \
-    --net="host" \
     --security-opt=no-new-privileges \
-    -e ROOT_URL=/ddns \
-    -e LISTENING_PORT=8001 \
+    -p 8001:8000/tcp \
+    -e LISTENING_PORT=8000 \
     -e PUBLICIP_DNS_PROVIDERS=cloudflare \
     -e LOG_CALLER=short \
     -e TZ="$(cat /data/system/timezone)" \
