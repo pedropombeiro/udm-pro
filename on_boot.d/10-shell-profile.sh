@@ -1,9 +1,11 @@
 #!/bin/sh
 
 ## Configure shell profile
+PROFILE_SOURCE=/data/settings/profile/global.profile.d
+PROFILE_TARGET=/etc/profile.d
 
 device_info() {
-    echo $(/usr/bin/ubnt-device-info "$1")
+  /usr/bin/ubnt-device-info "$1"
 }
 
 # Modify login banner (motd)
@@ -25,5 +27,5 @@ export PS1="[UDM] ${PROMPT_MAIN}${PS1}"
 EOF
 
 # Copy all global profile scripts (for all users) from `/data/settings/profile/global.profile.d/` directory
-mkdir -p /data/settings/profile/global.profile.d
-cp -rf /data/settings/profile/global.profile.d/* /etc/profile.d/
+mkdir -p ${PROFILE_SOURCE}
+cp -rf ${PROFILE_SOURCE}/* ${PROFILE_TARGET}

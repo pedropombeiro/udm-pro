@@ -13,3 +13,5 @@ alias mv='mv -i'
 alias rd=rmdir
 alias rm='rm -i'
 alias docker='podman'
+alias ls='lsd'
+alias vim='vi'

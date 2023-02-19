@@ -13,8 +13,8 @@ update:
 
 .PHONY: push-dns-config
 push-dns-config:
-	scp $(SCP_FLAGS) -r ./pihole/* $(SSH_HOST):/data/pihole/
-	scp $(SCP_FLAGS) ./etc-pihole/* $(SSH_HOST):/data/etc-pihole/
+	rsync $(RSYNC_FLAGS) --delete ./pihole/ $(SSH_HOST):/data/
+	rsync $(RSYNC_FLAGS) ./etc-pihole/ $(SSH_HOST):/data/
 	ssh $(SSH_FLAGS) $(SSH_HOST) 'touch /data/etc-pihole/macvendor.db; chown -R root:root /data/etc-pihole/; chmod a+r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/*; podman exec pihole pihole restartdns'
 
 .PHONY: push
@@ -31,6 +31,10 @@ push:
 	$(MAKE) push-dns-config
 	ssh $(SSH_FLAGS) $(SSH_HOST) 'chown -R 1000 /data/etc-ddns-updater/; chmod 700 /data/etc-ddns-updater; chmod 400 /data/etc-ddns-updater/config.json'
 	ssh $(SSH_FLAGS) $(SSH_HOST) '/data/scripts/upd_pihole_dote.sh'
+
+.PHONY: install-tools
+install-tools:
+	ssh $(SSH_FLAGS) $(SSH_HOST) /data/scripts/download-tools.sh
 
 .PHONY:
 edit:
