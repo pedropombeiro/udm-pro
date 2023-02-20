@@ -15,6 +15,7 @@ croc_version=9.6.2
 duf_version=0.8.1
 ncdu_version=2.2.1
 lsd_version=0.23.1
+xh_version=0.18.0
 
 function download_and_extract() {
   printf "${GREEN}%s${NC}\n" "Downloading $1..."
@@ -55,6 +56,8 @@ download_and_extract "https://dev.yorhel.nl/download/ncdu-${ncdu_version}-linux-
 
 archive_name="lsd-${lsd_version}-aarch64-unknown-linux-musl"
 download_and_extract "https://github.com/Peltoche/lsd/releases/download/${lsd_version}/${archive_name}.tar.gz" "${archive_name}/lsd"
+archive_name="xh-v${xh_version}-aarch64-unknown-linux-musl"
+download_and_extract "https://github.com/ducaale/xh/releases/download/v${xh_version}/xh-v${xh_version}-aarch64-unknown-linux-musl.tar.gz" "${archive_name}/xh"
 
 rm -rf "${temp_dir}"
 
