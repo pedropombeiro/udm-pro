@@ -26,6 +26,7 @@ push-config:
 	rsync $(RSYNC_FLAGS) --delete ./on_boot.d/ $(SSH_HOST):/data/
 	rsync $(RSYNC_FLAGS) ./cronjobs/ ./etc-ddns-updater/ ./podman/cni/ ./scripts/ ./settings/ ./system/ $(SSH_HOST):/data/
 	$(MAKE) push-dns-config
+	ssh $(SSH_FLAGS) $(SSH_HOST) '$(REMOTE_ON_BOOT_D)/25-add-cron-jobs.sh'
 
 .PHONY: push
 push:
