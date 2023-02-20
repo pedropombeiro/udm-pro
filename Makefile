@@ -16,7 +16,7 @@ update:
 push-dns-config:
 	rsync $(RSYNC_FLAGS) --delete ./pihole/ $(SSH_HOST):/data/
 	rsync $(RSYNC_FLAGS) ./etc-pihole/ $(SSH_HOST):/data/
-	ssh $(SSH_FLAGS) $(SSH_HOST) 'touch /data/etc-pihole/macvendor.db; chown -R root:root /data/etc-pihole/; chmod a+r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/*; podman exec pihole pihole restartdns'
+	ssh $(SSH_FLAGS) $(SSH_HOST) 'touch /data/etc-pihole/macvendor.db; chown -R root:root /data/etc-pihole/; chmod a+r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/*; podman container exists pihole && podman exec pihole pihole restartdns'
 
 .PHONY: push
 push:
