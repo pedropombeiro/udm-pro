@@ -11,7 +11,7 @@ printf "${YELLOW}%s${NC}\n" "Installing tools..."
 target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
-croc_version=9.6.2
+croc_version=9.6.3
 duf_version=0.8.1
 ncdu_version=2.2.1
 lsd_version=0.23.1
