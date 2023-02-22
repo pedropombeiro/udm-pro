@@ -60,4 +60,3 @@ archive_name="xh-v${xh_version}-aarch64-unknown-linux-musl"
 download_and_extract "https://github.com/ducaale/xh/releases/download/v${xh_version}/xh-v${xh_version}-aarch64-unknown-linux-musl.tar.gz" "${archive_name}/xh"
 
 rm -rf "${temp_dir}"
-
