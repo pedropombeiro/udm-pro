@@ -7,10 +7,10 @@ SSH_HOST ?= root@192.168.16.1
 
 .PHONY: update
 update:
-	curl -L https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/container-common/on_boot.d/05-container-common.sh -o ./on_boot.d/05-container-common.sh
 	curl -L https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/cni-plugins/05-install-cni-plugins.sh -o ./on_boot.d/05-install-cni-plugins.sh
 	curl -L https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/dns-common/on_boot.d/10-dns.sh -o ./on_boot.d/10-dns.sh
-	chmod +x ./on_boot.d/*.sh
+	curl -L https://raw.githubusercontent.com/pedropombeiro/udm-utilities/master/run-pihole/custom_pihole_dote.sh -o ./scripts/upd_pihole_dote.sh
+	chmod +x ./on_boot.d/*.sh ./scripts/*.sh
 
 .PHONY: push-dns-config
 push-dns-config:
