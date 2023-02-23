@@ -11,6 +11,7 @@ printf "${YELLOW}%s${NC}\n" "Installing tools..."
 target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
+bat_version=0.22.1
 croc_version=9.6.3
 duf_version=0.8.1
 ncdu_version=2.2.1
@@ -47,6 +48,8 @@ function extract_tar() {
 
 mkdir -p "${target_dir}"
 
+archive_name="bat-v${bat_version}-aarch64-unknown-linux-gnu"
+download_and_extract "https://github.com/sharkdp/bat/releases/download/v${bat_version}/bat-v${bat_version}-aarch64-unknown-linux-gnu.tar.gz" "${archive_name}/bat"
 download_and_extract "https://github.com/ClementTsang/bottom/releases/latest/download/bottom_aarch64-unknown-linux-musl.tar.gz" btm
 download_and_extract "https://github.com/schollz/croc/releases/download/v${croc_version}/croc_${croc_version}_Linux-ARM64.tar.gz" croc
 download_and_extract "https://github.com/muesli/duf/releases/download/v${duf_version}/duf_${duf_version}_linux_arm64.tar.gz" duf
