@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 pihole_ip='192.168.6.254'
 

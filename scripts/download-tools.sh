@@ -1,8 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 set -e
 
-SCRIPTS=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+SCRIPTS=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 source "${SCRIPTS}/colors.sh"
 

@@ -3,20 +3,20 @@
 # Get DataDir location
 DATA_DIR="/data"
 case "$(ubnt-device-info firmware || true)" in
-    1*)
-      DATA_DIR="/mnt/data"
-      ;;
-    2*)
-      DATA_DIR="/data"
-      ;;
-    3*)
-      DATA_DIR="/data"
-      ;;
-    *)
-      echo "ERROR: No persistent storage found." 1>&2
-      exit 1
-      ;;
-  esac
+1*)
+  DATA_DIR="/mnt/data"
+  ;;
+2*)
+  DATA_DIR="/data"
+  ;;
+3*)
+  DATA_DIR="/data"
+  ;;
+*)
+  echo "ERROR: No persistent storage found." 1>&2
+  exit 1
+  ;;
+esac
 
 ## configuration variables:
 VLAN=6
@@ -50,9 +50,9 @@ FORCED_INTFC="$(find /sys/class/net -name 'br*' -not -name '*.mac' -exec basenam
 CONTAINER=pihole
 
 if ! test -f /opt/cni/bin/macvlan; then
-    echo "Error: CNI plugins not found. You can install it with the following command:" >&2
-    echo "       curl -fsSLo ${DATA_DIR}/on_boot.d/05-install-cni-plugins.sh https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/cni-plugins/05-install-cni-plugins.sh && /bin/sh ${DATA_DIR}/on_boot.d/05-install-cni-plugins.sh" >&2
-    exit 1
+  echo "Error: CNI plugins not found. You can install it with the following command:" >&2
+  echo "       curl -fsSLo ${DATA_DIR}/on_boot.d/05-install-cni-plugins.sh https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/cni-plugins/05-install-cni-plugins.sh && /bin/sh ${DATA_DIR}/on_boot.d/05-install-cni-plugins.sh" >&2
+  exit 1
 fi
 
 # set VLAN bridge promiscuous
@@ -81,8 +81,8 @@ fi
 
 # Make DNSMasq listen to the container network for split horizon or conditional forwarding
 if ! grep -qxF "interface=br${VLAN}.mac" /run/dnsmasq.conf.d/custom.conf; then
-    echo "interface=br${VLAN}.mac" >> /run/dnsmasq.conf.d/custom.conf
-    kill -9 "$(cat /run/dnsmasq.pid)"
+  echo "interface=br${VLAN}.mac" >>/run/dnsmasq.conf.d/custom.conf
+  kill -9 "$(cat /run/dnsmasq.pid)"
 fi
 
 if podman container exists "${CONTAINER}"; then
