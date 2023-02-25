@@ -7,7 +7,7 @@ CONTAINER=ddns-updater
 if podman container exists "${CONTAINER}"; then
   podman start "${CONTAINER}"
 else
-  podman run -d --rm \
+  podman run -d \
     --name "${CONTAINER}" \
     --security-opt=no-new-privileges \
     -p 8001:8000/tcp \
