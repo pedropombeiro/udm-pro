@@ -1,1 +1,1 @@
-* * * * * root m="$(dig @192.168.6.254 www.google.com | grep 'status:')"; echo $m | grep 'status: NOERROR'; err=$?; curl -fsS -m 10 --retry 5 -o /dev/null --data-raw "$m" "https://hc-ping.com/4b911fc9-4cb9-4e82-bfe2-3fccf34043ce/$err"
+* * * * * root m=$(/data/scripts/check-pihole-status.sh); curl -fsS -m 10 --retry 5 -o /dev/null --data-raw "$m" "https://hc-ping.com/4b911fc9-4cb9-4e82-bfe2-3fccf34043ce/$?"
