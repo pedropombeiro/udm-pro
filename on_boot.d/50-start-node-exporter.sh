@@ -6,7 +6,10 @@ CONTAINER=node-exporter
 if podman container exists "${CONTAINER}"; then
   podman start "${CONTAINER}"
 else
-  podman run -d --name "${CONTAINER}" --net="host" --pid="host" -v "/:/host:ro,rslave" \
+  podman run -d --name "${CONTAINER}" \
+    --net="host" \
+    --pid="host" \
+    -v "/:/host:ro,rslave" \
     quay.io/prometheus/node-exporter:latest \
     --path.rootfs=/host --no-collector.netdev.netlink
 fi
