@@ -40,3 +40,5 @@ install-tools:
 .PHONY:
 edit:
 	vim scp://unifi//data/
+
+.PHONY: all clean test
