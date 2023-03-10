@@ -4,7 +4,7 @@ SCP_FLAGS := '-O -o LogLevel=Error'
 SSH_FLAGS := '-o RemoteCommand=none -o LogLevel=error'
 SSH_HOST := 'root@192.168.16.1'
 
-default:
+default $FZF_DEFAULT_OPTS='--preview-window hidden':
     @just --choose
 
 update:
