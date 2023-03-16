@@ -48,6 +48,8 @@ function extract_tar() {
 
 mkdir -p "${target_dir}"
 
+apt-get install -y knot-dnsutils # install dig and nslookup
+
 archive_name="bat-v${bat_version}-aarch64-unknown-linux-gnu"
 download_and_extract "https://github.com/sharkdp/bat/releases/download/v${bat_version}/bat-v${bat_version}-aarch64-unknown-linux-gnu.tar.gz" "${archive_name}/bat"
 download_and_extract "https://github.com/ClementTsang/bottom/releases/latest/download/bottom_aarch64-unknown-linux-musl.tar.gz" btm
