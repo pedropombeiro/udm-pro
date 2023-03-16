@@ -77,7 +77,7 @@ echo 'Waiting for new Pi-hole version to start'
 sleep 5 # Allow Pi-hole to start up
 
 if curl --connect-timeout 0.5 -fsL 192.168.6.254/admin -o /dev/null; then
-  podman system prune
+  podman system prune --all --volumes
 else
   code=$?
   echo 'Pi-hole deployment unsuccessful!'
