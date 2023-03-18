@@ -29,7 +29,7 @@ else
 fi
 set -e
 
-DOCKER_IMAGE=cbcrowe/pihole-unbound
+DOCKER_IMAGE=pombeirp/pihole-unbound
 DOCKER_TAG=latest
 
 echo 'Pulling new Pi-hole base image'
