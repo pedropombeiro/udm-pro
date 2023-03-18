@@ -23,7 +23,7 @@ dns_config_cmd := '''
   touch /data/etc-pihole/macvendor.db
   chown -R root:1000 /data/etc-pihole/
   chmod -R g+w /data/etc-pihole/
-  chmod a+r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/*
+  chmod a+r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/* /data/pihole/etc-unbound/unbound.conf.d/*
   podman container exists pihole && podman restart pihole
   chown -R 1000 /data/etc-ddns-updater/
   chmod 700 /data/etc-ddns-updater
@@ -48,7 +48,7 @@ push-config:
     just push-dns-config
     @just _ssh '{{ REMOTE_ON_BOOT_D }}/25-add-cron-jobs.sh'
 
-push: push-config (_ssh '/data/scripts/upd_pihole_dote.sh')
+push: push-config (_ssh '/data/scripts/upd_pihole_unbound.sh')
 
 install-tools: (_ssh '/data/scripts/download-tools.sh')
 
