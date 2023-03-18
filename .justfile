@@ -31,7 +31,7 @@ dns_config_cmd := '''
 '''
 
 @push-dns-config:
-    just _rsync --delete ./pihole/ {{ SSH_HOST }}:/data/
+    just _rsync --delete --exclude='*.pem' --exclude='*.cert' --exclude='*.key' ./pihole/ {{ SSH_HOST }}:/data/
     just _rsync ./etc-pihole/ {{ SSH_HOST }}:/data/
     just _ssh '{{ dns_config_cmd }}'
 
