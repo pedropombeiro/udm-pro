@@ -50,7 +50,7 @@ set +e
 
 if [[ ! -f /data/pihole/etc-unbound/unbound_server.pem ]]; then
   # Create certificate for unbound_exporter
-  docker run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} unbound-control-setup
+  podman run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} unbound-control-setup
 fi
 
 echo 'Stopping Pi-hole'
