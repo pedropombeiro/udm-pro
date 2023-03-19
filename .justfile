@@ -23,15 +23,16 @@ dns_config_cmd := '''
   touch /data/etc-pihole/macvendor.db
   chown -R root:1000 /data/etc-pihole/
   chmod -R g+w /data/etc-pihole/
-  chmod a+r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/* /data/pihole/etc-unbound/unbound.conf.d/*
-  podman container exists pihole && podman restart pihole
+  chmod a+r /data/etc-pihole/* /data/pihole/* /data/pihole/etc-dnsmasq.d/*
+  chmod -R a+r /data/unbound/etc
   chown -R 1000 /data/etc-ddns-updater/
   chmod 700 /data/etc-ddns-updater
   chmod 400 /data/etc-ddns-updater/config.json
 '''
 
 @push-dns-config:
-    just _rsync --delete --exclude='*.pem' --exclude='*.cert' --exclude='*.key' ./pihole/ {{ SSH_HOST }}:/data/
+    just _rsync --delete --force --exclude='*.pem' --exclude='*.cert' --exclude='*.key' ./unbound/etc {{ SSH_HOST }}:/data/
+    just _rsync --delete ./pihole/ {{ SSH_HOST }}:/data/
     just _rsync ./etc-pihole/ {{ SSH_HOST }}:/data/
     just _ssh '{{ dns_config_cmd }}'
 

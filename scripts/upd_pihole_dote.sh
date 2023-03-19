@@ -55,22 +55,22 @@ echo 'Starting new Pi-hole version'
 podman run -d --network dns --restart always \
     --name pihole \
     -e TZ="$(cat /data/system/timezone)" \
-    -v "/data/etc-pihole:/etc/pihole" \
-    -v "/data/pihole/etc-dnsmasq.d/03-user.conf:/etc/dnsmasq.d/03-user.conf" \
-    -v "/data/pihole/hosts:/etc/hosts:ro" \
+    -v "${DATA_DIR}/etc-pihole:/etc/pihole" \
+    -v "${DATA_DIR}/pihole/etc-dnsmasq.d/03-user.conf:/etc/dnsmasq.d/03-user.conf" \
+    -v "${DATA_DIR}/pihole/hosts:/etc/hosts:ro" \
     --dns=127.0.0.1 \
     --hostname pihole \
     --cap-add=SYS_NICE \
-    -e PIHOLE_UID=0 \
-    -e PIHOLE_GID=0 \
     -e DOTE_OPTS="-s 127.0.0.1:5053 --forwarder 1.1.1.1 --forwarder 1.0.0.1 --connections 10 --hostname cloudflare-dns.com --pin XdhSFdS2Zao99m31qAd/19S0SDzT2D52btXyYWqnJn4=" \
-    -e VIRTUAL_HOST="pihole" \
-    -e PROXY_LOCATION="pihole" \
+    -e FTLCONF_DBIMPORT=yes \
     -e FTLCONF_LOCAL_IPV4="192.168.6.254" \
-    -e PIHOLE_DNS_="127.0.0.1#5053" \
     -e IPv6="False" \
+    -e PIHOLE_DNS_="127.0.0.1#5053" \
+    -e PIHOLE_GID=0 \
+    -e PIHOLE_UID=0 \
+    -e PROXY_LOCATION="pihole" \
     -e SKIPGRAVITYONBOOT=1 \
-    -e DBIMPORT=yes \
+    -e VIRTUAL_HOST="pihole" \
     pombeirp/pihole-dote:${DOCKER_TAG}
 
 echo 'Waiting for new Pi-hole version to start'
