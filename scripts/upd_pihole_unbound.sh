@@ -45,18 +45,24 @@ chmod 0755 ${DATA_DIR}/etc-pihole/migration_backup/
 touch ${DATA_DIR}/etc-pihole/pihole-FTL.conf
 chmod 0664 ${DATA_DIR}/etc-pihole/pihole-FTL.conf
 chown root:1000 ${DATA_DIR}/etc-pihole/pihole-FTL.conf
+rm -f /data/pihole/etc-unbound/.cache_dump
 
 set +e
 
 if [[ ! -f /data/pihole/etc-unbound/unbound_server.pem ]]; then
-  # Create certificate for unbound_exporter
+  echo 'Generating certificate for unbound_exporter'
   podman run --rm ${DOCKER_IMAGE}:${DOCKER_TAG} unbound-control-setup
 fi
 
-echo 'Stopping Pi-hole'
-podman stop pihole
-echo 'Removing Pi-hole'
-podman rm pihole
+if podman container exists pihole; then
+  echo 'Saving Unbound cache'
+  podman exec -ti pihole bash -c 'unbound-control dump_cache > /etc/unbound/.cache_dump'
+  echo 'Stopping Pi-hole'
+  podman stop pihole
+  echo 'Removing Pi-hole'
+  podman rm pihole
+fi
+
 echo 'Starting new Pi-hole version'
 podman run -d --network dns --restart always \
     --name pihole \
@@ -85,6 +91,10 @@ echo 'Waiting for new Pi-hole version to start'
 sleep 5 # Allow Pi-hole to start up
 
 if curl --connect-timeout 0.5 -fsL 192.168.6.254/admin -o /dev/null; then
+  if [[ -f /data/pihole/etc-unbound/.cache_dump ]]; then
+    echo 'Restoring Unbound cache...'
+    podman exec -ti pihole bash -c 'cat /etc/unbound/.cache_dump | unbound-control load_cache'
+  fi
   podman system prune --all --volumes
 else
   code=$?
