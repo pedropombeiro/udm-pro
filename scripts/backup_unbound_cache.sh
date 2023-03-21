@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DATA_DIR="/data"
-CONTAINER=pihole
+CONTAINER=unbound
 CACHE_DUMP_PATH=${DATA_DIR}/unbound/backup/.cache_dump
 
 rm -rf ${DATA_DIR}/unbound/backup

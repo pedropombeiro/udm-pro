@@ -29,7 +29,7 @@ else
 fi
 set -e
 
-DOCKER_IMAGE=pombeirp/pihole-unbound
+DOCKER_IMAGE=pihole/pihole
 DOCKER_TAG=latest
 
 echo 'Pulling new Pi-hole base image...'
@@ -50,20 +50,11 @@ mkdir -p ${DATA_DIR}/unbound/backup
 podman run --rm \
   -v "${DATA_DIR}/unbound/etc:/etc/unbound:ro" \
   --entrypoint unbound-checkconf \
-  ${DOCKER_IMAGE}:${DOCKER_TAG}
-
-if [[ ! -f ${DATA_DIR}/unbound/etc/unbound_server.pem ]]; then
-  echo 'Generating certificate for unbound_exporter'
-  podman run --rm \
-    -v "${DATA_DIR}/unbound/etc:/etc/unbound" \
-    --entrypoint unbound-control-setup \
-    ${DOCKER_IMAGE}:${DOCKER_TAG}
-fi
+  alpinelinux/unbound:latest
 
 set +e
 
 if podman container exists pihole; then
-  ${DATA_DIR}/scripts/backup_unbound_cache.sh
   echo 'Stopping Pi-hole...'
   podman stop pihole
   echo 'Removing Pi-hole...'
@@ -77,8 +68,6 @@ podman run -d --network dns --restart always \
     -v "${DATA_DIR}/etc-pihole:/etc/pihole" \
     -v "${DATA_DIR}/pihole/etc-dnsmasq.d/03-user.conf:/etc/dnsmasq.d/03-user.conf" \
     -v "${DATA_DIR}/pihole/hosts:/etc/hosts:ro" \
-    -v "${DATA_DIR}/unbound/etc/:/etc/unbound/" \
-    -v "${DATA_DIR}/unbound/backup/:/var/tmp/unbound/" \
     --dns=127.0.0.1 \
     --hostname pihole \
     --cap-add=SYS_NICE \
@@ -89,7 +78,6 @@ echo 'Waiting for new Pi-hole version to start...'
 sleep 5 # Allow Pi-hole to start up
 
 if curl --connect-timeout 0.5 -fsL 192.168.6.254/admin -o /dev/null; then
-  ${DATA_DIR}/scripts/restore_unbound_cache.sh
   podman system prune --all --volumes
 else
   code=$?

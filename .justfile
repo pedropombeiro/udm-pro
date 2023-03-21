@@ -41,6 +41,13 @@ prepare_data_dir_cmd := '''
     rm -rf {{ REMOTE_ON_BOOT_D }}/*.sh /data/scripts/*.sh
 '''
 
+unbound cmd:
+    @just _ssh 'podman exec unbound unbound-control {{ cmd }}'
+
+unbound-reload: (unbound 'reload_keep_cache')
+
+unbound-stats: (unbound 'stats_noreset')
+
 push-config:
     @just _ssh '{{ prepare_data_dir_cmd }}'
     chmod +x ./on_boot.d/*.sh
