@@ -28,3 +28,5 @@ else
     -v "${DATA_DIR}/unbound/backup/:/var/tmp/unbound/" \
     alpinelinux/unbound:latest
 fi
+
+${DATA_DIR}/scripts/restore_unbound_cache.sh

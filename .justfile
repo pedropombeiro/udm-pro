@@ -35,6 +35,7 @@ dns_config_cmd := '''
     just _rsync --delete ./pihole/ {{ SSH_HOST }}:/data/
     just _rsync ./etc-pihole/ {{ SSH_HOST }}:/data/
     just _ssh '{{ dns_config_cmd }}'
+    just unbound-reload
 
 prepare_data_dir_cmd := '''
     mkdir -p {{ REMOTE_ON_BOOT_D }} /data/scripts /data/podman
