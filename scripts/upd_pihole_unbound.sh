@@ -45,7 +45,6 @@ chmod 0755 ${DATA_DIR}/etc-pihole/migration_backup/
 touch ${DATA_DIR}/etc-pihole/pihole-FTL.conf
 chmod 0664 ${DATA_DIR}/etc-pihole/pihole-FTL.conf
 chown root:1000 ${DATA_DIR}/etc-pihole/pihole-FTL.conf
-rm -rf ${DATA_DIR}/unbound/backup
 mkdir -p ${DATA_DIR}/unbound/backup
 
 podman run --rm \
@@ -63,11 +62,8 @@ fi
 
 set +e
 
-CACHE_DUMP_PATH=${DATA_DIR}/unbound/backup/.cache_dump
 if podman container exists pihole; then
-  echo 'Saving Unbound cache...'
-  podman exec pihole unbound-control dump_cache > $CACHE_DUMP_PATH
-  [[ -s $CACHE_DUMP_PATH ]] && echo 'Cache saved successfully' || echo 'Failed to save cache'
+  ${DATA_DIR}/scripts/backup_unbound_cache.sh
   echo 'Stopping Pi-hole...'
   podman stop pihole
   echo 'Removing Pi-hole...'
@@ -93,10 +89,7 @@ echo 'Waiting for new Pi-hole version to start...'
 sleep 5 # Allow Pi-hole to start up
 
 if curl --connect-timeout 0.5 -fsL 192.168.6.254/admin -o /dev/null; then
-  if [[ -s ${CACHE_DUMP_PATH} ]]; then
-    echo 'Restoring Unbound cache...'
-    podman exec -i pihole unbound-control load_cache < $CACHE_DUMP_PATH
-  fi
+  ${DATA_DIR}/scripts/restore_unbound_cache.sh
   podman system prune --all --volumes
 else
   code=$?
