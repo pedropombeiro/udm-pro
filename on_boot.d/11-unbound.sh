@@ -7,7 +7,7 @@ CONTAINER=unbound
 if [[ ! -f ${DATA_DIR}/unbound/etc/unbound_server.pem ]]; then
   echo 'Generating certificate for unbound_exporter'
   podman run --rm \
-    -v "${DATA_DIR}/unbound/etc:/etc/unbound" \
+    -v "${DATA_DIR}/unbound/etc/:/etc/unbound/" \
     --entrypoint unbound-control-setup \
     alpinelinux/unbound:latest
 fi

@@ -7,8 +7,8 @@ if podman container exists "${CONTAINER}"; then
   podman start "${CONTAINER}"
 else
   podman run -d --name "${CONTAINER}" \
-    -p 9167:9167 \
-    -e UNBOUND_HOST='tcp://192.168.6.1:8953' \
+    --network container:unbound \
+    -e UNBOUND_HOST='tcp://localhost:8953' \
     -v /data/unbound/etc:/etc/unbound:ro \
     rsprta/unbound_exporter
 
