@@ -37,6 +37,7 @@ ff02::3 ip6-allhosts
 192.168.46.40 deskcontroller
 192.168.46.42 linkitone
 192.168.46.43 mustang-gt
+192.168.46.44 mustang-gtx
 192.168.46.45 fitbit-aria
 
 # Consoles
