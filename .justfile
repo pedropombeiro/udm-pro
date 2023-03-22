@@ -49,6 +49,9 @@ unbound-reload: (unbound 'reload_keep_cache')
 
 unbound-stats: (unbound 'stats_noreset')
 
+unbound-test-dnssec:
+    @just _ssh 'dig -p 5335 dnssec-failed.org +dnssec | grep SERVFAIL >/dev/null && echo "DNSSEC validation is working" || echo "DNSSEC validation is not working"'
+
 push-config:
     @just _ssh '{{ prepare_data_dir_cmd }}'
     chmod +x ./on_boot.d/*.sh

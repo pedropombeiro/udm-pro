@@ -48,7 +48,8 @@ chown root:1000 ${DATA_DIR}/etc-pihole/pihole-FTL.conf
 mkdir -p ${DATA_DIR}/unbound/backup
 
 podman run --rm \
-  -v "${DATA_DIR}/unbound/etc:/etc/unbound:ro" \
+  -v "${DATA_DIR}/unbound/etc/:/etc/unbound/" \
+  -v "${DATA_DIR}/unbound/lib/:/var/lib/unbound/:ro" \
   --entrypoint unbound-checkconf \
   alpinelinux/unbound:latest
 
