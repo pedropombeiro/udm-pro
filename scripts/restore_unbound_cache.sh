@@ -1,10 +1,10 @@
 #!/bin/bash
 
 DATA_DIR="/data"
-CONTAINER=unbound
-CACHE_DUMP_PATH=${DATA_DIR}/unbound/backup/.cache_dump
+
+source ${DATA_DIR}/scripts/.export_unbound_cache_env.sh
 
 if [[ -s ${CACHE_DUMP_PATH} ]]; then
   echo 'Restoring Unbound cache...'
-  podman exec -i ${CONTAINER} unbound-control load_cache < $CACHE_DUMP_PATH
+  podman exec -i ${CONTAINER} unbound-control load_cache < "${CACHE_DUMP_PATH}"
 fi
