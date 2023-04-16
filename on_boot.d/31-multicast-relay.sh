@@ -2,6 +2,8 @@
 
 CONTAINER=multicast-relay
 
+# This container fixes situations like casting from a laptop to the Android TV box
+
 # kill all instances of avahi-daemon (UDM spins an instance up even with mDNS services disabled)
 killall avahi-daemon
 
@@ -12,7 +14,7 @@ else
   podman run -d \
     --name "${CONTAINER}" \
     --net="host" \
-    --security-opt=no-new-privileges \
+    --privileged \
     --restart=always \
     -e OPTS="--noSonosDiscovery" \
     -e INTERFACES="eth8 br46 br56 br76 br96" \
