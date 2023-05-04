@@ -29,10 +29,11 @@ else
 fi
 set -e
 
+DOCKER_IMAGE=pombeirp/pihole-dote
 DOCKER_TAG=latest
 
-echo 'Pulling new Pi-hole base image'
-podman pull pombeirp/pihole-dote:${DOCKER_TAG}
+echo 'Pulling new Pi-hole base image...'
+podman pull ${DOCKER_IMAGE}:${DOCKER_TAG}
 
 chmod +r ${DATA_DIR}/etc-pihole/* ${DATA_DIR}/pihole/* ${DATA_DIR}/pihole/etc-dnsmasq.d/*
 chmod 0664 ${DATA_DIR}/etc-pihole/gravity.db
@@ -47,14 +48,15 @@ chown root:1000 ${DATA_DIR}/etc-pihole/pihole-FTL.conf
 
 set +e
 
-echo 'Stopping Pi-hole'
-podman stop pihole
-echo 'Removing Pi-hole'
-podman rm pihole
-echo 'Starting new Pi-hole version'
+if podman container exists pihole; then
+  echo 'Stopping Pi-hole...'
+  podman stop pihole
+  echo 'Removing Pi-hole...'
+  podman rm pihole
+fi
 podman run -d --network dns --restart always \
     --name pihole \
-    -e TZ="$(cat /data/system/timezone)" \
+    -e TZ="$(cat ${DATA_DIR}/system/timezone)" \
     -v "${DATA_DIR}/etc-pihole:/etc/pihole" \
     -v "${DATA_DIR}/pihole/etc-dnsmasq.d/03-user.conf:/etc/dnsmasq.d/03-user.conf" \
     -v "${DATA_DIR}/pihole/hosts:/etc/hosts:ro" \
@@ -71,9 +73,9 @@ podman run -d --network dns --restart always \
     -e PROXY_LOCATION="pihole" \
     -e SKIPGRAVITYONBOOT=1 \
     -e VIRTUAL_HOST="pihole" \
-    pombeirp/pihole-dote:${DOCKER_TAG}
+    ${DOCKER_IMAGE}:${DOCKER_TAG}
 
-echo 'Waiting for new Pi-hole version to start'
+echo 'Waiting for new Pi-hole version to start...'
 sleep 5 # Allow Pi-hole to start up
 
 if curl --connect-timeout 0.5 -fsL 192.168.6.254/admin -o /dev/null; then
