@@ -1,0 +1,11 @@
+{
+  "on_boot.d/*.sh": {
+    "type": "on_boot"
+  },
+  "cronjobs/*": {
+    "type": "crontype"
+  },
+  "scripts/*.sh": {
+    "type": "scripts"
+  }
+}
