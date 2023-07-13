@@ -12,7 +12,7 @@ target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
 bat_version=0.23.0
-croc_version=9.6.4
+croc_version=9.6.5
 duf_version=0.8.1
 ncdu_version=2.2.1
 lsd_version=0.23.1
