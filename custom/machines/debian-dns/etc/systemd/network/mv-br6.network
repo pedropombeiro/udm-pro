@@ -1,0 +1,7 @@
+[Match]
+Name=mv-br6
+
+[Network]
+IPForward=yes
+Address=192.168.6.254/24
+Gateway=192.168.6.1

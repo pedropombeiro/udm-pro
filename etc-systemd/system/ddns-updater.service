@@ -1,0 +1,15 @@
+[Unit]
+Description=DDNS Updater
+After=network-online.target
+
+[Service]
+ExecStart=/data/opt/ddns-updater
+Environment=LISTENING_PORT=8001
+Environment=PUBLICIP_DNS_PROVIDERS=cloudflare
+Environment=LOG_CALLER=short
+Environment=TZ=Europe/Zurich
+Environment=BACKUP_DIRECTORY=/data/etc-ddns-updater
+Environment=DATADIR=/data/etc-ddns-updater
+
+[Install]
+WantedBy=multi-user.target

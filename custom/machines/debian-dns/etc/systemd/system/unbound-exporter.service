@@ -1,0 +1,9 @@
+[Unit]
+Description=Unbound Exporter
+After=network-online.target
+
+[Service]
+ExecStart=/opt/unbound/bin/unbound-exporter
+
+[Install]
+WantedBy=multi-user.target

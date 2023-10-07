@@ -7,12 +7,6 @@ SSH_HOST := 'root@192.168.16.1'
 default $FZF_DEFAULT_OPTS='--preview-window hidden':
     @just --choose
 
-update:
-    curl -L https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/cni-plugins/05-install-cni-plugins.sh -o ./on_boot.d/05-install-cni-plugins.sh
-    curl -L https://raw.githubusercontent.com/unifi-utilities/unifios-utilities/main/dns-common/on_boot.d/10-dns.sh -o ./on_boot.d/10-dns.sh
-    curl -L https://raw.githubusercontent.com/pedropombeiro/udm-utilities/master/run-pihole/custom_pihole_dote.sh -o ./scripts/upd_pihole_dote.sh
-    chmod +x ./on_boot.d/*.sh ./scripts/*.sh
-
 _ssh cmd:
     ssh {{ SSH_FLAGS }} {{ SSH_HOST }} '{{ cmd }}'
 
@@ -35,10 +29,10 @@ dns_config_cmd := '''
     just _rsync --delete ./pihole/ {{ SSH_HOST }}:/data/
     just _rsync ./etc-pihole/ {{ SSH_HOST }}:/data/
     just _ssh '{{ dns_config_cmd }}'
-    just unbound-reload
+    # just unbound-reload
 
 prepare_data_dir_cmd := '''
-    mkdir -p {{ REMOTE_ON_BOOT_D }} /data/scripts /data/podman
+    mkdir -p {{ REMOTE_ON_BOOT_D }} /data/scripts
     rm -rf {{ REMOTE_ON_BOOT_D }}/*.sh /data/scripts/*.sh
 '''
 
@@ -56,11 +50,12 @@ push-config:
     @just _ssh '{{ prepare_data_dir_cmd }}'
     chmod +x ./on_boot.d/*.sh
     @just _rsync --delete ./on_boot.d/ {{ SSH_HOST }}:/data/
-    @just _rsync ./cronjobs/ ./etc-ddns-updater/ ./podman/cni/ ./scripts/ ./settings/ ./system/ {{ SSH_HOST }}:/data/
+    @just _rsync ./cronjobs/ ./custom ./etc-ddns-updater/ ./opt/ ./scripts/ ./settings/ ./system/ {{ SSH_HOST }}:/data/
+    @just _rsync --no-relative ./etc-systemd/ {{ SSH_HOST }}:/etc/systemd/
     just push-dns-config
     @just _ssh '{{ REMOTE_ON_BOOT_D }}/25-add-cron-jobs.sh'
 
-push: push-config (_ssh '/data/scripts/upd_pihole_unbound.sh')
+push: push-config
 
 install-tools: (_ssh '/data/scripts/download-tools.sh')
 
