@@ -1,0 +1,14 @@
+[Unit]
+Description=Multicast Relay
+After=network-online.target
+
+[Service]
+ExecStartPre=/usr/bin/curl -o /tmp/sonosnet.py \
+  https://raw.githubusercontent.com/alsmith/multicast-relay/master/multicast-relay.py
+ExecStart=/usr/bin/python3 /tmp/sonosnet.py --noSonosDiscovery --interfaces eth8 br46 br56 br76 br96
+ExecStop=/bin/kill $(/usr/bin/pgrep -d " " -f " /tmp/sonosnet\.py ")
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

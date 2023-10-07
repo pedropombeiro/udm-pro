@@ -1,0 +1,26 @@
+[Unit]
+Description=DDNS Updater
+After=network-online.target
+
+[Service]
+ExecStart=/data/opt/ddns-updater
+Environment=LISTENING_PORT=8001
+Environment=PUBLICIP_DNS_PROVIDERS=cloudflare
+Environment=LOG_LEVEL=info
+Environment=LOG_CALLER=short
+Environment=TZ=Europe/Zurich
+Environment=BACKUP_PERIOD=0
+Environment=BACKUP_DIRECTORY=/data/etc-ddns-updater
+Environment=DATADIR=/data/etc-ddns-updater
+Environment=PERIOD=5m
+Environment=UPDATE_COOLDOWN_PERIOD=5m
+Environment=PUBLICIP_FETCHERS=all
+Environment=PUBLICIP_HTTP_PROVIDERS=all
+Environment=PUBLICIPV4_HTTP_PROVIDERS=all
+Environment=PUBLICIPV6_HTTP_PROVIDERS=all
+Environment=PUBLICIP_DNS_PROVIDERS=all
+Environment=PUBLICIP_DNS_TIMEOUT=3s
+Environment=HTTP_TIMEOUT=10s
+
+[Install]
+WantedBy=multi-user.target

@@ -1,1 +1,1 @@
-0 0 1 */6 * root wget https://www.internic.net/domain/named.root -q -O "/data/unbound/lib/root.hints" >/dev/null 2>&1
+0 0 1 */6 * root wget https://www.internic.net/domain/named.root -q -O "/data/unbound/lib/root.hints" >/dev/null 2>&1 && chown "/data/unbound/lib/root.hints" --reference=/data/unbound/lib

@@ -12,6 +12,5 @@ alias mkcd='foo(){ mkdir -p "$1"; cd "$1" }; foo'
 alias mv='mv -i'
 alias rd=rmdir
 alias rm='rm -i'
-alias docker='podman'
 alias ls='lsd'
-alias vim='vi'
+alias vim='nvim'
