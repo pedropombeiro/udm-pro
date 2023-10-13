@@ -33,6 +33,18 @@ dns_config_cmd := '''
 
 prepare_data_dir_cmd := 'mkdir -p ' + REMOTE_ON_BOOT_D + " /data/scripts\nrm -rf " + REMOTE_ON_BOOT_D / '*.sh /data/scripts/*.sh'
 
+ssh:
+    @just _ssh
+
+dns-shell:
+    @just _ssh 'TERM={{ env_var('TERM') }} machinectl shell debian-dns'
+
+pihole cmd:
+    @just _ssh 'TERM={{ env_var('TERM') }} machinectl shell debian-dns /usr/bin/sh -c "PIHOLE_SKIP_OS_CHECK=true pihole {{ cmd }}"'
+
+update-pihole:
+    @just pihole -up
+
 unbound cmd:
     @just _ssh 'machinectl shell debian-dns /usr/bin/sh -c "unbound-control {{ cmd }}"'
 
