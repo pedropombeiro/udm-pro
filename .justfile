@@ -36,6 +36,9 @@ prepare_data_dir_cmd := 'mkdir -p ' + REMOTE_ON_BOOT_D + " /data/scripts\nrm -rf
 ssh:
     @just _ssh
 
+fix-shell:
+    @just _ssh "systemctl -M debian-dns try-restart container-shell@1.service"
+
 dns-shell:
     @just _ssh 'TERM={{ env_var('TERM') }} machinectl shell debian-dns'
 
@@ -49,6 +52,9 @@ unbound cmd:
     @just _ssh 'machinectl shell debian-dns /usr/bin/sh -c "unbound-control {{ cmd }}"'
 
 unbound-reload: (unbound 'reload_keep_cache')
+
+unbound-backup-cache:
+    @just _ssh '/data/scripts/backup_unbound_cache.sh'
 
 unbound-restore-cache:
     @just _ssh '/data/scripts/restore_unbound_cache.sh'
