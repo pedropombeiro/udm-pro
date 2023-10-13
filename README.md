@@ -21,10 +21,11 @@ The customizations built on top of the utilities provide the following services:
 SSH into the UDM Pro, and follow the instructions in
 https://github.com/unifi-utilities/unifios-utilities/tree/main/nspawn-container (including the MACVLAN steps).
 
-Install the Prometheus Node Exporter:
+
 
 ```shell
-apt install -y prometheus-node-exporter
+apt install -y prometheus-node-exporter # Install the Prometheus Node Exporter
+mkdir -p /volume1/pihole
 ```
 
 Inside the debian-dns container:
