@@ -50,6 +50,9 @@ unbound cmd:
 
 unbound-reload: (unbound 'reload_keep_cache')
 
+unbound-restore-cache:
+    @just _ssh '/data/scripts/restore_unbound_cache.sh'
+
 unbound-stats: (unbound 'stats_noreset')
 
 unbound-test-dnssec:

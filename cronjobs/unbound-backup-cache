@@ -1,1 +1,1 @@
-30 * * * * root /data/scripts/backup_unbound_cache.sh >/dev/null 2>&1
+30 0 * * * root /data/scripts/backup_unbound_cache.sh >/dev/null 2>&1
