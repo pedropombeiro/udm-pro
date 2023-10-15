@@ -16,6 +16,27 @@ The customizations built on top of the utilities provide the following services:
   Unbound on TCP port 8953;
 - Pi-hole: Ad-blocking recursive caching DNS provider which delegates the DNS queries to Unbound on UDP port 5335.
 
+### Prometheus Node Exporter
+
+Install with `apt-get`:
+
+```shell
+apt install -y prometheus-node-exporter
+```
+
+Edit the `/etc/systemd/system/multi-user.target.wants/prometheus-node-exporter.service` file to disable a couple of
+unsupported exports:
+
+```text
+ExecStart=/usr/bin/prometheus-node-exporter $ARGS --no-collector.pressure --no-collector.rapl
+```
+
+Reload the unit:
+
+```shell
+systemctl daemon-reload && systemctl restart prometheus-node-exporter.service
+```
+
 ### Create VM for Pi-hole/Unbound
 
 SSH into the UDM Pro, and follow the instructions in
