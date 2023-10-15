@@ -1,0 +1,15 @@
+[Unit]
+Description=Promtail
+
+[Service]
+User=root
+WorkingDirectory=/data/opt/
+ExecStartPre=/bin/sleep 30
+ExecStart=/data/opt/promtail-linux-arm64 -client.external-labels=hostname=unifi -config.file=./promtail.yaml
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
