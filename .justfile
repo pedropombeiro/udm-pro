@@ -33,7 +33,7 @@ dns_config_cmd := '''
 
 prepare_data_dir_cmd := 'mkdir -p ' + REMOTE_ON_BOOT_D + " /data/scripts\nrm -rf " + REMOTE_ON_BOOT_D / '*.sh /data/scripts/*.sh'
 
-ssh:
+shell:
     @just _ssh
 
 fix-shell:
