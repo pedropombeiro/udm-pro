@@ -3,6 +3,9 @@
 DATA_DIR="/data"
 
 source ${DATA_DIR}/scripts/.export_unbound_cache_env.sh
+if [[ -n "$1" ]]; then
+  CACHE_DUMP_PATH="$1"
+fi
 
 if [[ -s ${CACHE_DUMP_PATH} ]]; then
   echo 'Restoring Unbound cache...'
