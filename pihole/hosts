@@ -15,7 +15,6 @@ ff02::3 ip6-allhosts
 # ISP
 192.168.10.1 router router.lan.pombei.ro
 192.168.10.2 gateway-wan gateway-wan.lan.pombei.ro
-192.168.10.3 netbox netbox.lan.pombei.ro
 
 # Management
 192.168.16.1 unifi gateway gateway.infra.pombei.ro
@@ -31,6 +30,7 @@ ff02::3 ip6-allhosts
 192.168.46.1  gateway.iot.pombei.ro
 192.168.46.5  tradfri
 192.168.46.10 tv-salon
+192.168.46.11 netbox
 192.168.46.12 printer
 192.168.46.20 pedros-kindle
 192.168.46.21 sofias-kindle
