@@ -17,7 +17,7 @@ duf_version=0.8.1
 ncdu_version=2.3
 lsd_version=1.0.0
 promtail_version=2.9.1
-xh_version=0.18.0
+xh_version=0.21.0
 
 function download_and_extract() {
   printf "${GREEN}%s${NC}\n" "Downloading $1..."
