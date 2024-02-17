@@ -12,7 +12,7 @@ target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
 bat_version=0.24.0
-croc_version=9.6.6
+croc_version=9.6.10
 duf_version=0.8.1
 ncdu_version=2.3
 lsd_version=1.0.0
@@ -52,7 +52,7 @@ mkdir -p "${target_dir}"
 apt-get install -y knot-dnsutils # install dig and nslookup
 
 download_and_extract "https://github.com/ClementTsang/bottom/releases/latest/download/bottom_aarch64-unknown-linux-musl.tar.gz" btm
-download_and_extract "https://github.com/schollz/croc/releases/download/v${croc_version}/croc_${croc_version}_Linux-ARM64.tar.gz" croc
+download_and_extract "https://github.com/schollz/croc/releases/download/v${croc_version}/croc_v${croc_version}_Linux-ARM64.tar.gz" croc
 download_and_extract "https://github.com/muesli/duf/releases/download/v${duf_version}/duf_${duf_version}_linux_arm64.tar.gz" duf
 download_and_extract "https://github.com/orf/gping/releases/latest/download/gping-aarch64-unknown-linux-musl.tar.gz" gping
 download_and_extract "https://github.com/grafana/loki/releases/download/v${promtail_version}/promtail-linux-arm64.zip" promtail-linux-arm64
