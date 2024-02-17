@@ -72,6 +72,7 @@ push-config:
     @just _rsync --no-relative ./etc-systemd/ {{ SSH_HOST }}:/etc/systemd/
     just push-dns-config
     @just _ssh '{{ REMOTE_ON_BOOT_D }}/25-add-cron-jobs.sh'
+    @just _ssh '/data/scripts/run-checks.sh'
 
 push: push-config
 
