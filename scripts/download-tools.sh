@@ -15,7 +15,7 @@ bat_version=0.24.0
 croc_version=9.6.14
 duf_version=0.8.1
 ncdu_version=2.3
-lsd_version=1.0.0
+lsd_version=1.1.2
 promtail_version=2.9.1
 xh_version=0.21.0
 
