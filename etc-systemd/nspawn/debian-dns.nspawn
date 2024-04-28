@@ -8,7 +8,8 @@ MACVLAN=br6
 
 [Files]
 Bind=/data/etc-pihole:/etc/pihole
-Bind=/volume1/pihole:/external/etc/pihole
+Bind=/volume1/etc/pihole:/external/etc/pihole
+Bind=/volume1/var/log/pihole:/external/var/log/pihole
 Bind=/data/pihole/etc-dnsmasq.d/03-user.conf:/etc/dnsmasq.d/03-user.conf
 Bind=/data/pihole/hosts:/etc/hosts
 
