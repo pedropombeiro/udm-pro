@@ -45,7 +45,7 @@ IPV6_GW=""
 # re-routed through the DNS container. separate interfaces with spaces.
 # e.g. "br0" or "br0 br1" etc.
 if machinectl show debian-dns | grep 'State=running'; then
-  FORCED_INTFC='br56 br46 br36 br26 br0 br76 br66 br96'
+  FORCED_INTFC='br56 br46 br36 br26 br0 br66 br96'
   # FORCED_INTFC="$(find /sys/class/net -name 'br*' -not -name '*.mac' -exec basename {} \;)"
 else
   FORCED_INTFC=''
@@ -86,16 +86,16 @@ for intfc in ${FORCED_INTFC}; do
   if [ -d "/sys/class/net/${intfc}" ]; then
     for proto in udp tcp; do
       prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV4_IP} ! -d ${IPV4_IP} --dport 53 -j LOG --log-prefix [DNAT-${intfc}-${proto}]"
-      iptables -t nat -C ${prerouting_rule} 2>/dev/null || iptables -t nat -A ${prerouting_rule}
+      iptables -t nat -C "${prerouting_rule}" 2>/dev/null || iptables -t nat -A "${prerouting_rule}"
       prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV4_IP} ! -d ${IPV4_IP} --dport 53 -j DNAT --to ${IPV4_IP}"
-      iptables -t nat -C ${prerouting_rule} 2>/dev/null || iptables -t nat -A ${prerouting_rule}
+      iptables -t nat -C "${prerouting_rule}" 2>/dev/null || iptables -t nat -A "${prerouting_rule}"
 
       # (optional) IPv6 force DNS (TCP/UDP 53) through DNS container
       if [ -n "${IPV6_IP}" ]; then
         prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV6_IP} ! -d ${IPV6_IP} --dport 53 -j LOG --log-prefix [DNAT-${intfc}-${proto}]"
-        ip6tables -t nat -C ${prerouting_rule} 2>/dev/null || ip6tables -t nat -A ${prerouting_rule}
+        ip6tables -t nat -C "${prerouting_rule}" 2>/dev/null || ip6tables -t nat -A "${prerouting_rule}"
         prerouting_rule="PREROUTING -i ${intfc} -p ${proto} ! -s ${IPV6_IP} ! -d ${IPV6_IP} --dport 53 -j DNAT --to ${IPV6_IP}"
-        ip6tables -t nat -C ${prerouting_rule} 2>/dev/null || ip6tables -t nat -A ${prerouting_rule}
+        ip6tables -t nat -C "${prerouting_rule}" 2>/dev/null || ip6tables -t nat -A "${prerouting_rule}"
       fi
     done
   fi
