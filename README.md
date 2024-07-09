@@ -40,11 +40,11 @@ systemctl daemon-reload && systemctl restart prometheus-node-exporter.service
 ### Create VM for Pi-hole/Unbound
 
 SSH into the UDM Pro, and follow the instructions in
-https://github.com/unifi-utilities/unifios-utilities/tree/main/nspawn-container (including the MACVLAN steps).
+<https://github.com/unifi-utilities/unifios-utilities/tree/main/nspawn-container> (including the MACVLAN steps).
 
 ```shell
 apt install -y prometheus-node-exporter # Install the Prometheus Node Exporter
-mkdir -p /volume1/pihole
+mkdir -p /volume1/etc/pihole/ /volume1/var/log/pihole/
 ```
 
 Inside the debian-dns container:
