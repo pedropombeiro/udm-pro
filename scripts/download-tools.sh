@@ -12,12 +12,12 @@ target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
 bat_version=0.24.0
-croc_version=9.6.15
+croc_version=10.0.10
 duf_version=0.8.1
-ncdu_version=2.3
+ncdu_version=2.4
 lsd_version=1.1.2
 promtail_version=2.9.1
-xh_version=0.21.0
+xh_version=0.22.0
 
 function download_and_extract() {
   printf "${GREEN}%s${NC}\n" "Downloading $1..."
