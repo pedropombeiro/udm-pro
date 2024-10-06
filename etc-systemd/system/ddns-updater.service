@@ -4,7 +4,8 @@ After=network-online.target
 
 [Service]
 ExecStart=/data/opt/ddns-updater
-Environment=LISTENING_PORT=8001
+Environment=ROOT_URL=/ddns
+Environment=LISTENING_ADDRESS=:8001
 Environment=PUBLICIP_DNS_PROVIDERS=cloudflare
 Environment=LOG_LEVEL=info
 Environment=LOG_CALLER=short

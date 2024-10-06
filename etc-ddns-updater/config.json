@@ -1,11 +1,10 @@
- {
+{
   "settings": [
     {
       "provider": "duckdns",
-      "host": "pombeiro",
+      "domain": "pombeiro.duckdns.org",
       "token": "399e9d09-b408-4fa8-a7c9-547a4afd28a5",
-      "ip_version": "ipv4",
-      "provider_ip": true
+      "ip_version": "ipv4"
     }
   ]
 }
