@@ -62,7 +62,7 @@ ff02::3 ip6-allhosts
 192.168.76.27 gitlab-macbookpro walkingpad
 
 # Home
-192.168.96.10	nas nas.pombei.ro pihole.pombei.ro traefik.pombei.ro media.pombei.ro photos.pombei.ro dashboard.pombei.ro esphome.pombei.ro unifi.pombei.ro pms pms.pombei.ro docs docs.pombei.ro vpn vpn.pombei.ro docker-registry docker-registry.pombei.ro grafana grafana.pombei.ro prometheus.pombei.ro ha ha.pombei.ro postgres postgres.pombei.ro sync.pombei.ro gitlab-dashboard gitlab-dashboard.pombei.ro
+192.168.96.10	nas nas.pombei.ro pihole.pombei.ro traefik.pombei.ro media.pombei.ro photos.pombei.ro dashboard.pombei.ro esphome.pombei.ro unifi.pombei.ro pms pms.pombei.ro docs docs.pombei.ro vpn vpn.pombei.ro docker-registry docker-registry.pombei.ro grafana grafana.pombei.ro prometheus.pombei.ro ha ha.pombei.ro postgres postgres.pombei.ro sync.pombei.ro gitlab-dashboard gitlab-dashboard.pombei.ro scanner scanner.pombei.ro
 192.168.96.11	nas-port2
 192.168.96.13	monitor
 192.168.96.16	Canon-70D
