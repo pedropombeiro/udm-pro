@@ -12,12 +12,12 @@ target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
 bat_version=0.24.0
-croc_version=10.0.10
+croc_version=10.2.1
 duf_version=0.8.1
-ncdu_version=2.4
-lsd_version=1.1.2
-promtail_version=2.9.1
-xh_version=0.22.0
+ncdu_version=2.7
+lsd_version=1.1.5
+promtail_version=3.2.2
+xh_version=0.23.0
 
 function download_and_extract() {
   printf "${GREEN}%s${NC}\n" "Downloading $1..."
@@ -54,7 +54,7 @@ apt-get install -y knot-dnsutils # install dig and nslookup
 download_and_extract "https://github.com/ClementTsang/bottom/releases/latest/download/bottom_aarch64-unknown-linux-musl.tar.gz" btm
 download_and_extract "https://github.com/schollz/croc/releases/download/v${croc_version}/croc_v${croc_version}_Linux-ARM64.tar.gz" croc
 download_and_extract "https://github.com/muesli/duf/releases/download/v${duf_version}/duf_${duf_version}_linux_arm64.tar.gz" duf
-download_and_extract "https://github.com/orf/gping/releases/latest/download/gping-aarch64-unknown-linux-musl.tar.gz" gping
+download_and_extract "https://github.com/orf/gping/releases/latest/download/gping-Linux-musl-arm64.tar.gz" gping
 download_and_extract "https://github.com/grafana/loki/releases/download/v${promtail_version}/promtail-linux-arm64.zip" promtail-linux-arm64
 
 download_and_extract "https://dev.yorhel.nl/download/ncdu-${ncdu_version}-linux-aarch64.tar.gz" ncdu
