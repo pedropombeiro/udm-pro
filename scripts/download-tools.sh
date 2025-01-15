@@ -11,6 +11,8 @@ printf "${YELLOW}%s${NC}\n" "Installing tools..."
 target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
+apt install -y prometheus-node-exporter neovim
+
 bat_version=0.24.0
 croc_version=10.2.1
 duf_version=0.8.1
