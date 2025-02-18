@@ -532,7 +532,7 @@
   resolveIPv4 = true
 
   # Should FTL try to resolve IPv6 addresses to hostnames?
-  resolveIPv6 = true
+  resolveIPv6 = false
 
   # Control whether FTL should use the fallback option to try to obtain client names from
   # checking the network table. This behavior can be disabled with this option.
