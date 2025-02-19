@@ -1,7 +1,7 @@
 # Pi-hole configuration file (v6.0)
 # Encoding: UTF-8
 # This file is managed by pihole-FTL
-# Last updated on 2025-02-18 22:51:19 CET
+# Last updated on 2025-02-19 21:39:13 CET
 
 [dns]
   # Array of upstream DNS servers used by Pi-hole
@@ -131,7 +131,7 @@
   #
   # Possible values are:
   #     <any valid domain>
-  domain = "dns.pombei.ro" ### CHANGED, default = "lan"
+  domain = "home.pombei.ro" ### CHANGED, default = "lan"
 
   # Should all reverse lookups for private IP ranges (i.e., 192.168.x.y, etc) which are
   # not found in /etc/hosts or the DHCP leases file be answered with "no such domain"
@@ -506,7 +506,7 @@
     #
     # Possible values are:
     #     valid NTP upstream server
-    server = "pool.ntp.org"
+    server = "ntp.pombei.ro" ### CHANGED, default = "pool.ntp.org"
 
     # Interval in seconds between successive synchronization attempts with the NTP server
     interval = 3600
@@ -532,7 +532,7 @@
   resolveIPv4 = true
 
   # Should FTL try to resolve IPv6 addresses to hostnames?
-  resolveIPv6 = false
+  resolveIPv6 = false ### CHANGED, default = true
 
   # Control whether FTL should use the fallback option to try to obtain client names from
   # checking the network table. This behavior can be disabled with this option.
@@ -957,7 +957,7 @@
   addr2line = true
 
   # Should FTL load additional dnsmasq configuration files from /etc/dnsmasq.d/?
-  etc_dnsmasq_d = false
+  etc_dnsmasq_d = true ### CHANGED, default = false
 
   # Additional lines to inject into the generated dnsmasq configuration.
   # Warning: This is an advanced setting and should only be used with care. Incorrectly
@@ -1136,5 +1136,5 @@
   all = false
 
 # Configuration statistics:
-# 152 total entries out of which 136 entries are default
-# --> 16 entries are modified
+# 152 total entries out of which 133 entries are default
+# --> 19 entries are modified
