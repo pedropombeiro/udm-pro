@@ -190,7 +190,7 @@
   listeningMode = "SINGLE" ### CHANGED, default = "LOCAL"
 
   # Log DNS queries and replies to pihole.log
-  queryLogging = true
+  queryLogging = false
 
   # List of CNAME records which indicate that <cname> is really <target>. If the <TTL> is
   # given, it overwrites the value of local-ttl
