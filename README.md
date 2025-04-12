@@ -69,7 +69,7 @@ Inside the debian-dns container (`machinectl shell debian-dns`):
 apt-get install unbound unbound-anchor
 chown -R unbound:unbound /var/lib/unbound
 curl -s https://www.internic.net/domain/named.root | sudo -h pihole -u unbound tee /var/lib/unbound/root.hints
-sudo -h pihole -u unbound unbound-control-setup
+sudo -h pihole unbound-control-setup
 
 # Generate root trust anchor for DNSSEC validation
 sudo -h pihole -u unbound unbound-anchor -a "/var/lib/unbound/root.key"
