@@ -11,6 +11,7 @@ printf "${YELLOW}%s${NC}\n" "Installing tools..."
 target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
+apt update
 apt install -y prometheus-node-exporter neovim
 
 bat_version=0.25.0
@@ -19,7 +20,7 @@ duf_version=0.8.1
 ncdu_version=2.8
 lsd_version=1.1.5
 promtail_version=3.2.2
-xh_version=0.24.0
+xh_version=0.24.1
 
 function download_and_extract() {
   printf "${GREEN}%s${NC}\n" "Downloading $1..."
