@@ -10,10 +10,6 @@ clients:
 positions:
   filename: /volume1/.promtail-positions.yaml
 
-pipelineStages:
-  - drop:
-      expression: "(.*/health-check.*)|(.*/health.*)"
-
 scrape_configs:
   - job_name: journal
     journal:
@@ -26,6 +22,8 @@ scrape_configs:
       - drop:
           source: 'unit'
           expression: '^$'
+      - drop:
+          expression: "(.*/health-check.*)|(.*/health.*)"
     relabel_configs:
       - source_labels: ['__journal__systemd_unit']
         target_label: 'unit'
