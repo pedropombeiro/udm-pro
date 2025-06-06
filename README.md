@@ -53,10 +53,10 @@ Inside the debian-dns container:
 echo 'pihole' > /etc/hostname
 # Allow SQLite to create a journal file for changes inside the same directory as the gravity.db file
 chmod g+w /external/etc/pihole
-chown -R pihole:pihole /external/etc/pihole
 
 apt -y install curl
 curl -sSL https://install.pi-hole.net | PIHOLE_SKIP_OS_CHECK=true bash
+chown -R pihole:pihole /external/etc/pihole
 ```
 
 ### Unbound
@@ -66,8 +66,9 @@ Inside the debian-dns container (`machinectl shell debian-dns`):
 ```shell
 # https://docs.pi-hole.net/guides/dns/unbound/#setting-up-pi-hole-as-a-recursive-dns-server-solution
 
-apt-get install unbound unbound-anchor
-chown -R unbound:unbound /var/lib/unbound
+apt-get install -y unbound unbound-anchor curl sudo
+mkdir -p /var/log/unbound/
+chown -R unbound:unbound /var/lib/unbound /var/log/unbound
 curl -s https://www.internic.net/domain/named.root | sudo -h pihole -u unbound tee /var/lib/unbound/root.hints
 sudo -h pihole unbound-control-setup
 
