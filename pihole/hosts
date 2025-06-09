@@ -48,6 +48,7 @@ ff02::3 ip6-allhosts
 192.168.56.1  gateway.game.pombei.ro
 192.168.56.20 dev-pc
 192.168.56.21 dev-pc-wireless
+192.168.56.28 marianas-macbookpro16
 192.168.56.31 diogos-phone
 192.168.56.35 marianas-phone
 192.168.56.50 xbox
