@@ -27,7 +27,7 @@ is_running_in_ui=$(uname -a | grep ui-alpine >/dev/null && echo 1 || echo 0)
 
 print_op_stay "Checking if Prometheus Node Exporter is running"
 if curl --fail --silent http://unifi:9100/metrics >/dev/null; then
-  print_ok
+  print_ok "http://unifi:9100/metrics"
 else
   if [[ $is_running_in_ui -eq 1 ]]; then
     apt-get install -y prometheus-node-exporter
@@ -40,9 +40,24 @@ else
   any_failed=1
 fi
 
+for svc in on_boot ddns-updater promtail; do
+  print_op_stay "Checking ${svc} service"
+  if systemctl status "${svc}.service" >/dev/null; then
+    print_ok "${svc}.service is running"
+  else
+    echo
+    print_failure "${svc} is not running, fixing"
+    systemctl enable "${svc}.service" && systemctl start "${svc}.service"
+    sleep 5
+    if ! systemctl status "${svc}.service" >/dev/null; then
+      any_failed=1
+    fi
+  fi
+done
+
 print_op_stay "Checking promtail"
 if pgrep promtail >/dev/null; then
-  print_ok
+  print_ok "promtail is running"
 else
   echo
   print_failure "promtail is not running"
@@ -51,7 +66,7 @@ fi
 
 print_op_stay "Checking if neovim is in PATH"
 if which nvim >/dev/null; then
-  print_ok
+  print_ok "neovim present in PATH"
 else
   if [[ $is_running_in_ui -eq 1 ]]; then
     apt-get install -y neovim
