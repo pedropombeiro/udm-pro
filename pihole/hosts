@@ -28,12 +28,13 @@ ff02::3 ip6-allhosts
 
 # IoT
 192.168.46.1  gateway.iot.pombei.ro
-192.168.46.5  tradfri
 192.168.46.10 tv-salon
 192.168.46.11 netbox
 192.168.46.12 printer
 192.168.46.20 pedros-kindle
 192.168.46.21 sofias-kindle
+192.168.46.31 pedros-garmin
+192.168.46.32 sofias-garmin
 192.168.46.40 deskcontroller
 192.168.46.41 keylight
 192.168.46.42 keylight-left
@@ -43,11 +44,13 @@ ff02::3 ip6-allhosts
 192.168.46.51 gl-s10-bt-proxy-d12b60
 192.168.46.52 avfan1
 192.168.46.53 apollo-msr-2-b332b4
+192.168.46.61 uvc-g3-instant
 
 # Consoles
 192.168.56.1  gateway.game.pombei.ro
 192.168.56.20 dev-pc
 192.168.56.21 dev-pc-wireless
+192.168.56.26 diogos-macbookpro16
 192.168.56.28 marianas-macbookpro16
 192.168.56.31 diogos-phone
 192.168.56.35 marianas-phone
