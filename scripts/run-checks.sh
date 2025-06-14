@@ -40,6 +40,28 @@ else
   any_failed=1
 fi
 
+print_op_stay "Checking DNS resolver"
+if dig microsoft.com @192.168.6.254 | grep "status: NOERROR" >/dev/null; then
+  print_ok "DNS resolver working as expected"
+else
+  echo
+  print_failure "DNS resolver not working as expected!"
+  any_failed=1
+fi
+
+print_op_stay "Checking root.hints"
+if [[ -f /data/unbound/lib/root.hints ]]; then
+  print_ok "/data/unbound/lib/root.hints is present"
+else
+  echo
+  print_failure "/data/unbound/lib/root.hints is not missing, fixing"
+  wget https://www.internic.net/domain/named.root -q -O "/data/unbound/lib/root.hints" >/dev/null 2>&1 && \
+    chown "/data/unbound/lib/root.hints" --reference=/data/unbound/lib
+  if [[ ! -f /data/unbound/lib/root.hints ]]; then
+    any_failed=1
+  fi
+fi
+
 for svc in on_boot ddns-updater promtail; do
   print_op_stay "Checking ${svc} service"
   if systemctl status "${svc}.service" >/dev/null; then

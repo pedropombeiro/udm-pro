@@ -22,6 +22,8 @@ dns_config_cmd := '''
   chown -R 1000 /data/etc-ddns-updater/
   chmod 700 /data/etc-ddns-updater
   chmod 400 /data/etc-ddns-updater/config.json
+  wget https://www.internic.net/domain/named.root -q -O "/data/unbound/lib/root.hints" >/dev/null 2>&1 && \
+    chown "/data/unbound/lib/root.hints" --reference=/data/unbound/lib
 '''
 
 @push-dns-config:
