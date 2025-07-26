@@ -11,7 +11,7 @@ printf "${YELLOW}%s${NC}\n" "Installing tools..."
 target_dir="/data/opt"
 temp_dir="$(mktemp -d)"
 
-apt update
+apt update || printf "${YELLOW}%s${NC}\n" "apt update failed!"
 apt install -y prometheus-node-exporter neovim
 
 bat_version=0.25.0
