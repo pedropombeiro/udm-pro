@@ -15,12 +15,12 @@ apt update || printf "${YELLOW}%s${NC}\n" "apt update failed!"
 apt install -y prometheus-node-exporter neovim
 
 bat_version=0.25.0
-croc_version=10.2.1
+croc_version=10.2.4
 duf_version=0.8.1
-ncdu_version=2.8
+ncdu_version=2.9.1
 lsd_version=1.1.5
 promtail_version=3.2.2
-xh_version=0.24.1
+xh_version=0.25.0
 
 function download_and_extract() {
   printf "${GREEN}%s${NC}\n" "Downloading $1..."
